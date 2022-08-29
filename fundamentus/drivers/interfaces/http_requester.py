@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # ------------------------------------------------------------------------------
-#  Name: random_user_agent_test.py
+#  Name: http_requester.py
 #  Version: 0.0.1
 #
 #  Summary: Python Fundamentus
@@ -16,11 +16,15 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
-from .random_user_agent import ALL_USER_AGENTS, get_random_user_agent
+from abc import ABC, abstractmethod
 
 
-def test_get_random_user_agent():
-    user_agent = get_random_user_agent()
+# pylint: disable=too-few-public-methods
+class HttpRequesterInterface(ABC):
+    """Represents a complete HTTP request."""
 
-    assert isinstance(user_agent, str)
-    assert user_agent in ALL_USER_AGENTS
+    @abstractmethod
+    def make_request(self):
+        """Make request to the url and return the response."""
+
+        raise NotImplementedError("You should implement this method.")
