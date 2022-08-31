@@ -20,7 +20,7 @@ from fundamentus.contracts.extract_contract import ExtractContract
 from fundamentus.drivers.html_collector import HtmlCollector
 from fundamentus.drivers.http_requester import HttpRequester
 from fundamentus.drivers.mocks.html_collector import HTML_COLLECTOR_MOCK
-from fundamentus.stages.extractor_html_information import \
+from fundamentus.stages.extraction.extractor_html_information import \
     ExtractorHtmlInformation
 
 
