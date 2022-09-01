@@ -16,6 +16,9 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Transform Contract."""
+
 from collections import namedtuple
 
-TransformContract = namedtuple('TransformContract', ['transformed_information'])
+TransformContract = namedtuple('TransformContract',
+                               ['transformed_information'])

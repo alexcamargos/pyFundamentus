@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Extract Contract"""
+
 from collections import namedtuple
 
 ExtractContract = namedtuple('ExtractContract',

@@ -16,13 +16,17 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+#pylint: disable=R0801 # Disable warning: Similar lines in 2 files
+
+"""Test of transform raw information from the HTTP requester."""
+
 from fundamentus.contracts.mocks.extract_contract import extract_contract_mock
 from fundamentus.contracts.transform_contract import TransformContract
 
 from .transform_raw_information import TransformRawInformation
 
 
-def test_transform_raw_information():
+def test_transform_raw_information() -> None:
     transform = TransformRawInformation()
     transformed = transform.transform(extract_contract_mock)
 

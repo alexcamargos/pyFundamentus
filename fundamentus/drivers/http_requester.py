@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""HTTP Requester - This module is responsible for making HTTP requests."""
+
 import requests
 
 from .interfaces.http_requester import HttpRequesterInterface
@@ -26,13 +28,25 @@ from .random_user_agent import get_random_user_agent
 class HttpRequester(HttpRequesterInterface):
     """Represents a complete HTTP request."""
 
-    def __init__(self, url: str, params: dict):
+    def __init__(self, url: str, params: dict) -> None:
+        """Initialize the class.
+
+        :param url: str: URL to make the request.
+        :param params: dict: Parameters to make the request.
+        """
+
+        self.url = url
+        self.params = params
         self.__url = url
         self.__params = params
         self.__headers = {"User-Agent": get_random_user_agent()}
 
-    def make_request(self):
-        """Make request to the url and return the response."""
+    def make_request(self) -> dict:
+        """Make request to the url and return the response.
+
+        :return: dict: Response of the request.
+        :raises HTTPError: If the request fails.
+        """
 
         try:
             response = requests.get(self.__url,

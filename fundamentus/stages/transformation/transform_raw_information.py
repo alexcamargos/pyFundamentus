@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Transform raw information from the HTTP requester."""
+
 from decimal import Decimal
 
 from fundamentus.contracts.extract_contract import ExtractContract
@@ -25,9 +27,17 @@ from fundamentus.exceptions.transform_exception import TransformException
 
 #pylint: disable=too-few-public-methods
 class TransformRawInformation:
+    """Represents a raw information transformer."""
 
     def transform(self,
                   extract_contract: ExtractContract) -> TransformContract:
+        """Transform the raw information.
+
+        :param extract_contract: ExtractContract: Extract contract.
+        :return: TransformContract: Transform contract.
+        :raises TransformException: if the transform fails.
+        """
+
         try:
             transform_information = self.__make_transformation(
                 extract_contract.raw_information)
@@ -107,7 +117,12 @@ class TransformRawInformation:
         return Decimal(value) if value is not None else None
 
     #pylint: disable=too-many-statements
-    def __make_transformation(self, raw_information):
+    def __make_transformation(self, raw_information: dict) -> dict:
+        """Make the transformation.
+
+        :param raw_information: dict: Raw information.
+        :return: dict: Transformed information.
+        """
 
         cotacao = raw_information['cotacao']
         informacoes_basicas = raw_information['informacoes_basicas']

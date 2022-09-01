@@ -16,11 +16,14 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Html Collector Test"""
+
 from .html_collector import HtmlCollector
 from .mocks.html_collector import HTML_COLLECTOR_MOCK
 
 
-def test_collect_information_keys_results():
+def test_collect_information_keys_results() -> None:
+    """Test collect information keys results."""
 
     collector = HtmlCollector()
     collect_information = collector.collect_information(

@@ -255,9 +255,7 @@ ALL_USER_AGENTS = __DESKTOP_USER_AGENTS + \
 def get_random_user_agent() -> str:
     """Returns a random user agent from the list of user agents.
 
-    Returns:
-        str: A random user agent.
-
+    :return: str: A random user agent.
     """
 
     return random.choice(ALL_USER_AGENTS)

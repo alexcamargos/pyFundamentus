@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Test of extractor HTML Information."""
+
 from fundamentus.contracts.extract_contract import ExtractContract
 from fundamentus.drivers.html_collector import HtmlCollector
 from fundamentus.drivers.http_requester import HttpRequester
@@ -24,8 +26,11 @@ from fundamentus.stages.extraction.extractor_html_information import \
     ExtractorHtmlInformation
 
 
-def test_extract_html_information(requests_mock):
-    """Test extractor html information."""
+def test_extract_html_information(requests_mock) -> None:
+    """Test extractor html information.
+
+    :param requests_mock (Mock): Mock requests.
+    """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
     payload = {'papel': 'MGLU3'}

@@ -16,14 +16,17 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Html Collector Interface."""
+
 from abc import ABC, abstractmethod
 
 
 # pylint: disable=too-few-public-methods
 class HtmlCollectorInterface(ABC):
+    """Represents a complete HTML collector."""
 
     @abstractmethod
-    def collect_information(self, html: str):
+    def collect_information(self, html: str) -> dict:
         """Collect information from the html."""
 
         raise NotImplementedError("You should implement this method.")

@@ -16,10 +16,14 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Random User Agent Test."""
+
 from .random_user_agent import ALL_USER_AGENTS, get_random_user_agent
 
 
-def test_get_random_user_agent():
+def test_get_random_user_agent() -> None:
+    """Test get random user agent."""
+
     user_agent = get_random_user_agent()
 
     assert isinstance(user_agent, str)

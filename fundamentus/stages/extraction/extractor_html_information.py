@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Extractor HTML Information."""
+
 from datetime import datetime as dt
 
 from fundamentus.contracts.extract_contract import ExtractContract
@@ -28,17 +30,30 @@ from fundamentus.exceptions.extract_exception import ExtractException
 
 #pylint: disable=too-few-public-methods
 class ExtractorHtmlInformation:
+    """Represents a HTML information extractor."""
 
-    def __init__(self,
-                 requester: HttpRequesterInterface,
-                 collector: HtmlCollectorInterface):
+    def __init__(self, requester: HttpRequesterInterface,
+                 collector: HtmlCollectorInterface) -> None:
+        """Initialize the class.
+
+        :param requester: HttpRequesterInterface: Requester to make the request.
+        :param collector: HtmlCollectorInterface: Collector to collect the information.
+        """
+
         self.__requester = requester
         self.__collector = collector
 
     def extract(self) -> ExtractContract:
+        """Extract the information from the HTML.
+
+        :return: ExtractContract: Extracted information.
+        :raises ExtractException: If the extraction fails.
+        """
+
         try:
             html_information = self.__requester.make_request()
-            collect_information = self.__collector.collect_information(html_information['content'])
+            collect_information = self.__collector.collect_information(
+                html_information['content'])
 
             return ExtractContract(raw_information=collect_information,
                                    extraction_date=dt.today().toordinal())

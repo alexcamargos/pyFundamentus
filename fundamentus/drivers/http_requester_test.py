@@ -16,11 +16,13 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""HTTP Requester Test."""
+
 from .http_requester import HttpRequester
 from .mocks.http_requester import REQUESTER_MOCK
 
 
-def test_make_request(requests_mock):
+def test_make_request(requests_mock) -> None:
     """Test make_request method."""
 
     url = 'https://www.fundamentus.com.br/detalhes.php'

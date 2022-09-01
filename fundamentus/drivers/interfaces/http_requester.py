@@ -16,6 +16,8 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""HTTP Requester Interface."""
+
 from abc import ABC, abstractmethod
 
 
@@ -24,7 +26,7 @@ class HttpRequesterInterface(ABC):
     """Represents a complete HTTP request."""
 
     @abstractmethod
-    def make_request(self):
+    def make_request(self) -> dict:
         """Make request to the url and return the response."""
 
         raise NotImplementedError("You should implement this method.")
