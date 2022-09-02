@@ -62,7 +62,7 @@ def test_extract_html_information(requests_mock) -> None:
     ] == list(response.raw_information['cotacao'].keys())
 
     assert [
-        'ativo', 'empresa', 'tipo', 'setor', 'subsetor', 'valor_de_mercado',
+        'trading_code', 'empresa', 'tipo', 'setor', 'subsetor', 'valor_de_mercado',
         'valor_da_firma', 'numero_de_acoes', 'data_ultimo_balanço',
         'volume_negociacoes_2_meses'
     ] == list(response.raw_information['informacoes_basicas'].keys())

@@ -43,7 +43,7 @@ def test_collect_information_keys_results() -> None:
     ] == list(collect_information['cotacao'].keys())
 
     assert [
-        'ativo', 'empresa', 'tipo', 'setor', 'subsetor', 'valor_de_mercado',
+        'trading_code', 'empresa', 'tipo', 'setor', 'subsetor', 'valor_de_mercado',
         'valor_da_firma', 'numero_de_acoes', 'data_ultimo_balanço',
         'volume_negociacoes_2_meses'
     ] == list(collect_information['informacoes_basicas'].keys())

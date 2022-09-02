@@ -56,7 +56,7 @@ class HtmlCollector(HtmlCollectorInterface):
         # Extraindo as informações básicas a ação.
         stocks_information_data = stocks_information.find_all(
             'span', {'class': 'txt'})
-        stock = stocks_information_data[1].text
+        trading_code = stocks_information_data[1].text
         cotacao = stocks_information_data[3].text
         tipo = stocks_information_data[5].text
         data_ultima_cotacao = stocks_information_data[7].text
@@ -146,7 +146,7 @@ class HtmlCollector(HtmlCollectorInterface):
         }
 
         informacoes_basicas = {
-            'ativo': stock,
+            'trading_code': trading_code,
             'empresa': empresa,
             'tipo': tipo,
             'setor': setor,
@@ -176,8 +176,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'preco_sobre_valor_patrimonial': preco_sobre_valor_patrimonial,
             'preco_sobre_ebit': preco_sobre_ebit,
             'preco_sobre_ativos': preco_sobre_ativos,
-            'preco_sobre_ativo_circulante_liquido':
-            preco_sobre_ativo_circulante_liquido,
+            'preco_sobre_ativo_circulante_liquido':preco_sobre_ativo_circulante_liquido,
             'preco_sobre_capital_giro': preco_sobre_capital_giro,
             'lucro_por_acao': lucro_por_acao,
             'valor_patrimonial_por_acao': valor_patrimonial_por_acao,
@@ -191,8 +190,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'return_invested_capital': return_invested_capital,
             'return_on_equity': return_on_equity,
             'ebit_sobre_ativos_totais': ebit_sobre_ativos_totais,
-            'crescimento_receita_liquida_5_anos':
-            crescimento_receita_liquida_5_anos,
+            'crescimento_receita_liquida_5_anos':crescimento_receita_liquida_5_anos,
             'giro_ativos': giro_ativos,
             'margem_bruta': margem_bruta,
             'margem_ebit': margem_ebit,
@@ -215,15 +213,12 @@ class HtmlCollector(HtmlCollectorInterface):
 
         demonstrativo_de_resultados = {
             '12_meses': {
-                'receita_liquida_ultimos_12_meses':
-                receita_liquida_ultimos_12_meses,
+                'receita_liquida_ultimos_12_meses': receita_liquida_ultimos_12_meses,
                 'ebit_ultimos_12_meses': ebit_ultimos_12_meses,
-                'lucro_liquido_ultimos_12_meses':
-                lucro_liquido_ultimos_12_meses
+                'lucro_liquido_ultimos_12_meses': lucro_liquido_ultimos_12_meses
             },
             '3_meses': {
-                'receita_liquida_ultimos_3_meses':
-                receita_liquida_ultimos_3_meses,
+                'receita_liquida_ultimos_3_meses':receita_liquida_ultimos_3_meses,
                 'ebit_ultimos_3_meses': ebit_ultimos_3_meses,
                 'lucro_liquido_ultimos_3_meses': lucro_liquido_ultimos_3_meses
             }
