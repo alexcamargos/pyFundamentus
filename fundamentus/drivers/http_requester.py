@@ -19,9 +19,9 @@
 """HTTP Requester - This module is responsible for making HTTP requests."""
 
 import requests
+from fundamentus.utils.random_user_agent import get_random_user_agent
 
 from .interfaces.http_requester import HttpRequesterInterface
-from .random_user_agent import get_random_user_agent
 
 
 # pylint: disable=too-few-public-methods
