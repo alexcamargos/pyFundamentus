@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: extractor_html_information.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -15,7 +15,6 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Extractor HTML Information."""
 
 from datetime import datetime as dt
@@ -53,7 +52,7 @@ class ExtractorHtmlInformation:
         try:
             html_information = self.__requester.make_request()
             collect_information = self.__collector.collect_information(
-                html_information['content'])
+                html_information.response.text)
 
             return ExtractContract(raw_information=collect_information,
                                    extraction_date=dt.today().toordinal())

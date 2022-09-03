@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.1
+#  Version: 0.0.3
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -15,10 +15,13 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """HTTP Requester - This module is responsible for making HTTP requests."""
 
+from collections import namedtuple
+from typing import Type
+
 import requests
+
 from fundamentus.utils.random_user_agent import get_random_user_agent
 
 from .interfaces.http_requester import HttpRequesterInterface
@@ -35,11 +38,30 @@ class HttpRequester(HttpRequesterInterface):
         :param params: dict: Parameters to make the request.
         """
 
-        self.url = url
-        self.params = params
         self.__url = url
         self.__params = params
         self.__headers = {"User-Agent": get_random_user_agent()}
+        self.__fundamentus_request = namedtuple('Fundamentus',
+                                                ['status_code',
+                                                'request',
+                                                'response'])
+
+    def __send_http_request(self,
+                            prepared_request: Type[requests.PreparedRequest]
+                            ) -> requests.Response:
+        """Send the HTTP request.
+
+        :param prepared_request: requests.PreparedRequest: Prepared request.
+        :return: requests.Response: Response of the request.
+        :raises HTTPError: If the request fails.
+        """
+
+        with requests.Session() as session:
+            response = session.send(prepared_request)
+
+            response.raise_for_status()
+
+            return response
 
     def make_request(self) -> dict:
         """Make request to the url and return the response.
@@ -49,16 +71,18 @@ class HttpRequester(HttpRequesterInterface):
         """
 
         try:
-            response = requests.get(self.__url,
-                                    params=self.__params,
-                                    headers=self.__headers,
-                                    timeout=10) # 10 seconds
-            response.raise_for_status()
 
-            return {
-                'status_code': response.status_code,
-                'content': response.text
-            }
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            request = requests.Request(method="GET",
+                                       url=self.__url,
+                                       params=self.__params,
+                                       headers=self.__headers)
+
+            prepared_request = request.prepare()
+            response = self.__send_http_request(prepared_request)
+
+            return self.__fundamentus_request(status_code=response.status_code,
+                                              request=request,
+                                              response=response)
+        except requests.exceptions.RequestException as error:
+            print(f'\nError: {error}')
             return None

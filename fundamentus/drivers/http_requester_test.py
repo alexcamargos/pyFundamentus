@@ -18,6 +18,8 @@
 
 """HTTP Requester Test."""
 
+from requests.exceptions import RequestException
+
 from .http_requester import HttpRequester
 from .mocks.http_requester import REQUESTER_MOCK
 
@@ -33,10 +35,26 @@ def test_make_request(requests_mock) -> None:
                       text=REQUESTER_MOCK['content'])
 
     requester = HttpRequester(url=url, params=payload)
-    response = requester.make_request()
+    fundamentus_response = requester.make_request()
 
-    assert response['status_code'] == REQUESTER_MOCK['status_code']
-    assert response['content'] == REQUESTER_MOCK['content']
+    assert fundamentus_response.request.method == 'GET'
+    assert fundamentus_response.request.url == url
+    assert fundamentus_response.request.params == payload
+    assert fundamentus_response.status_code == REQUESTER_MOCK['status_code']
+    assert fundamentus_response.response.text == REQUESTER_MOCK['content']
 
-    assert response['content'].startswith('<!DOCTYPE html>')
-    assert response['content'].endswith('</html>\n')
+
+def test_make_request_error(requests_mock) -> None:
+    """Test make_request method with error."""
+
+    url = 'http://invalid_url.com'
+    payload = {'papel': 'MGLU3'}
+
+    requests_mock.get(url=url,
+                      status_code=404,
+                      json={'detail': 'something went wrong.'})
+    try:
+        requester = HttpRequester(url=url, params=payload)
+        requester.make_request()
+    except RequestException as error:
+        assert error is not None
