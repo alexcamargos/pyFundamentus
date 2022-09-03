@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: run_cmd.py
-#  Version: 0.0.2
+#  Version: 0.0.3
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -28,6 +28,24 @@ from fundamentus.main.fundamentus_pipeline import \
     FundamentusPipeline as Fundamentus
 
 
+def get_arguments() -> argparse.Namespace:
+    """Argument parser.
+
+    :return: Argument parser.
+    """
+
+    # Create the parser.
+    parser = argparse.ArgumentParser(
+        description='Python Fundamentus is a Python API that allows you to '
+                    'quickly access the main fundamental indicators of the '
+                    'main stocks in the Brazilian market.')
+
+    # Add the arguments.
+    parser.add_argument('ticker', type=str, help='Stock ticker.')
+
+    return parser.parse_args()
+
+
 def main(ticker: str) -> TransformContract:
     """Main function.
 
@@ -46,16 +64,8 @@ def main(ticker: str) -> TransformContract:
 
 if __name__ == '__main__':
 
-    # Parse the arguments.
-    parser = argparse.ArgumentParser(
-        description=
-        'Python Fundamentus is a Python API that allows you to quickly '
-        'access the main fundamental indicators of the main stocks in the Brazilian market.'
-    )
-
-    # Add the arguments options.
-    parser.add_argument('ticker', help='Ticker of the stock', type=str)
-    args = parser.parse_args()
+    # Get the arguments.
+    args = get_arguments()
 
     # Get the stock information.
     information = main(ticker=args.ticker)
