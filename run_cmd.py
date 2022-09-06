@@ -15,15 +15,15 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Fundamentus Command line interface."""
 
 import argparse
 
+from rich.columns import Columns
 from rich.console import Console
 
 from fundamentus.contracts.transform_contract import TransformContract
-from fundamentus.interfaces.textualize import get_tables
+from fundamentus.interfaces.textualize import get_panels
 from fundamentus.main.fundamentus_pipeline import \
     FundamentusPipeline as Fundamentus
 
@@ -37,8 +37,8 @@ def get_arguments() -> argparse.Namespace:
     # Create the parser.
     parser = argparse.ArgumentParser(
         description='Python Fundamentus is a Python API that allows you to '
-                    'quickly access the main fundamental indicators of the '
-                    'main stocks in the Brazilian market.')
+        'quickly access the main fundamental indicators of the '
+        'main stocks in the Brazilian market.')
 
     # Add the arguments.
     parser.add_argument('ticker', type=str, help='Stock ticker.')
@@ -73,9 +73,11 @@ if __name__ == '__main__':
     # Initialize the console.
     console = Console()
 
-    # Get the tables.
-    tables = get_tables(information)
+    # Clean the console.
+    console.clear()
 
-    # Print the tables.
-    for table in tables:
-        console.print(table)
+    # Get the tables.
+    panels = get_panels(information)
+
+    # Print the panels.
+    console.print(Columns(panels, expand=True))
