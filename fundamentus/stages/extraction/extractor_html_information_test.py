@@ -15,7 +15,6 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Test of extractor HTML Information."""
 
 from fundamentus.contracts.extract_contract import ExtractContract
@@ -24,6 +23,8 @@ from fundamentus.drivers.http_requester import HttpRequester
 from fundamentus.drivers.mocks.html_collector import HTML_COLLECTOR_MOCK
 from fundamentus.stages.extraction.extractor_html_information import \
     ExtractorHtmlInformation
+
+from fundamentus.exceptions.extract_exception import ExtractException
 
 
 def test_extract_html_information(requests_mock) -> None:
@@ -49,3 +50,27 @@ def test_extract_html_information(requests_mock) -> None:
     assert isinstance(response, ExtractContract)
     assert isinstance(response.extraction_date, int)
     assert isinstance(response.raw_information, dict)
+
+
+def test_extract_html_information_exception(requests_mock) -> None:
+    """Test extractor html information exception.
+
+    :param requests_mock (Mock): Mock requests.
+    """
+
+    url = 'https://www.fundamentus.com.br/detalhes.php'
+    payload = {'papel': 'MGLU3'}
+
+    requests_mock.get(url=url,
+                      status_code=HTML_COLLECTOR_MOCK['status_code'],
+                      text='Extract Exception')
+
+    requester = HttpRequester(url=url, params=payload)
+    collector = HtmlCollector()
+    extractor = ExtractorHtmlInformation(requester=requester,
+                                         collector=collector)
+
+    try:
+        response = extractor.extract() #pylint: disable=unused-variable
+    except ExtractException as exception:
+        assert isinstance(exception, ExtractException)
