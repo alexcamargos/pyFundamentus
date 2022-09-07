@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -175,20 +175,20 @@ class HtmlCollector(HtmlCollectorInterface):
             'preco_sobre_lucro': preco_sobre_lucro,
             'preco_sobre_valor_patrimonial': preco_sobre_valor_patrimonial,
             'preco_sobre_ebit': preco_sobre_ebit,
+            'price_sales_ratio': price_sales_ratio,
             'preco_sobre_ativos': preco_sobre_ativos,
             'preco_sobre_ativo_circulante_liquido':preco_sobre_ativo_circulante_liquido,
-            'preco_sobre_capital_giro': preco_sobre_capital_giro,
-            'lucro_por_acao': lucro_por_acao,
-            'valor_patrimonial_por_acao': valor_patrimonial_por_acao,
-            'price_sales_ratio': price_sales_ratio,
             'dividend_yield': dividend_yield,
             'enterprise_value_sobre_ebitda': enterprise_value_sobre_ebitda,
             'enterprise_value_sobre_ebit': enterprise_value_sobre_ebit,
+            'preco_sobre_capital_giro': preco_sobre_capital_giro,
+            'lucro_por_acao': lucro_por_acao,
+            'valor_patrimonial_por_acao': valor_patrimonial_por_acao,
         }
 
         indicadores_de_rentabilidade = {
-            'return_invested_capital': return_invested_capital,
             'return_on_equity': return_on_equity,
+            'return_invested_capital': return_invested_capital,
             'ebit_sobre_ativos_totais': ebit_sobre_ativos_totais,
             'crescimento_receita_liquida_5_anos':crescimento_receita_liquida_5_anos,
             'giro_ativos': giro_ativos,
@@ -204,10 +204,10 @@ class HtmlCollector(HtmlCollectorInterface):
 
         balanco_patrimonial = {
             'ativo': ativo,
-            'divida_bruta': divida_bruta,
-            'disponibilidades': disponibilidades,
-            'divida_líquida': divida_liquida,
             'ativo_circulante': ativo_circulante,
+            'disponibilidades': disponibilidades,
+            'divida_bruta': divida_bruta,
+            'divida_líquida': divida_liquida,
             'patrimonio_Liquido': patrimonio_liquido,
         }
 
