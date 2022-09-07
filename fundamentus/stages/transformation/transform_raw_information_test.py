@@ -22,11 +22,14 @@
 
 from fundamentus.contracts.mocks.extract_contract import extract_contract_mock
 from fundamentus.contracts.transform_contract import TransformContract
+from fundamentus.exceptions.transform_exception import TransformException
 
 from .transform_raw_information import TransformRawInformation
 
 
 def test_transform_raw_information() -> None:
+    """Test of transform raw information from the HTTP requester."""
+
     transform = TransformRawInformation()
     transformed = transform.transform(extract_contract_mock)
 
@@ -100,3 +103,20 @@ def test_transform_raw_information() -> None:
     ] == list(
         transformed.transformed_information['demonstrativo_de_resultados']
         ['3_meses'].keys())
+
+
+def test_transform_raw_information_exception() -> None:
+    """Test of transform raw information from the HTTP requester.
+
+    This test should raise an exception because the raw
+    information is not a valid.
+
+    :raises: TransformException
+    """
+
+    transform = TransformRawInformation()
+
+    try:
+        transformed = transform.transform([]) #pylint: disable=unused-variable
+    except TransformException as exception:
+        assert isinstance(exception, TransformException)
