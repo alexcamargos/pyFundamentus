@@ -67,7 +67,7 @@ class HttpRequester(HttpRequesterInterface):
         """Make request to the url and return the response.
 
         :return: dict: Response of the request.
-        :raises HTTPError: If the request fails.
+        :raises RequestException: If the request fails.
         """
 
         try:
@@ -84,5 +84,4 @@ class HttpRequester(HttpRequesterInterface):
                                               request=request,
                                               response=response)
         except requests.exceptions.RequestException as error:
-            print(f'\nError: {error}')
-            return None
+            raise error
