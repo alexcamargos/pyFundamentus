@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: run_cmd.py
-#  Version: 0.0.3
+#  Version: 0.0.4
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -19,8 +19,10 @@
 
 import argparse
 
+from rich import box
 from rich.columns import Columns
 from rich.console import Console
+from rich.panel import Panel
 
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.interfaces.textualize import get_panels
@@ -79,5 +81,26 @@ if __name__ == '__main__':
     # Get the tables.
     panels = get_panels(information)
 
-    # Print the panels.
-    console.print(Columns(panels, expand=True))
+    titles = [f"{information.transformed_information['informacoes_basicas']['empresa']} "
+         f"- {information.transformed_information['informacoes_basicas']['trading_code']}",
+              'Informações Básicas',
+              'Oscilações',
+              'Indicadores de Valuation',
+              'Indicadores de Rentabilidade',
+              'Indicadores de Endividamento',
+              'Balanço Patrimonial',
+              'Demonstrativo de Resultados']
+
+    # # Print the panels.
+    with console.pager(styles=True) as screen:
+        console.print('Python Fundamentus')
+
+        for panel, title in zip(panels, titles):
+            console.print(Panel(title=title,
+                                renderable=Columns(panel, expand=True),
+                                box=box.HEAVY_EDGE,
+                                expand=True))
+
+        console.print(
+            'Created by Alexsander Lopes Camargos - https://github.com/alexcamargos/pyFundamentus'
+        )
