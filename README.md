@@ -6,9 +6,23 @@
 
 ## Installation
 
+`git clone https://github.com/alexcamargos/pyFundamentus.git`
+
+`pip install -r requirements.txt`
+
 ## API usage
 
+`python run_cmd.py VALE3`
+
 ## Examples
+
+`python run_cmd.py mglu3`
+
+![](screenshot/mglu3.png)
+
+`python run_cmd.py wege3`
+
+![](screenshot/wege3.png)
 
 ## Autor
 
