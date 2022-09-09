@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester_test.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -18,14 +18,20 @@
 
 """HTTP Requester Test."""
 
+import pytest
 from requests.exceptions import RequestException
 
 from .http_requester import HttpRequester
 from .mocks.http_requester import REQUESTER_MOCK
 
 
+# Disable requests_cache for tests.
+@pytest.fixture(scope='function')
 def test_make_request(requests_mock) -> None:
-    """Test make_request method."""
+    """Test make_request method.
+
+    :param requests_mock.Mocker requests_mock: Mock requests.
+    """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
     payload = {'papel': 'MGLU3'}
@@ -45,7 +51,10 @@ def test_make_request(requests_mock) -> None:
 
 
 def test_make_request_error(requests_mock) -> None:
-    """Test make_request method with error."""
+    """Test make_request method with error.
+
+    :param requests_mock.Mocker requests_mock: Mock requests.
+    """
 
     url = 'http://invalid_url.com'
     payload = {'papel': 'MGLU3'}

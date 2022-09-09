@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.3
+#  Version: 0.0.4
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -21,6 +21,7 @@ from collections import namedtuple
 from typing import Type
 
 import requests
+import requests_cache
 
 from fundamentus.utils.random_user_agent import get_random_user_agent
 
@@ -55,6 +56,11 @@ class HttpRequester(HttpRequesterInterface):
         :return: requests.Response: Response of the request.
         :raises HTTPError: If the request fails.
         """
+
+        # Cache is expired after 12 hours (43200 seconds).
+        requests_cache.install_cache(cache_name='fundamentus_cache',
+                                     backend='sqlite',
+                                     expire_after=43200)
 
         with requests.Session() as session:
             response = session.send(prepared_request)

@@ -1,3 +1,6 @@
+# Sqlite file from requests_cache
+fundamentus_cache.sqlite
+
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
