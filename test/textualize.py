@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: textualize.py
-#  Version: 0.0.5
+#  Version: 0.0.6
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -16,22 +16,45 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
+"""Fundamentus Command line interface."""
+
 from decimal import Decimal
 
 from rich.panel import Panel
-
+from fundamentus.contracts.transform_contract import TransformContract
+from fundamentus.main.fundamentus_pipeline import \
+    FundamentusPipeline as Fundamentus
 from fundamentus.utils.indicator_names import INDICATOR_NAME
+
+
+def get_information(ticker: str) -> TransformContract:
+    """Main function.
+
+    :param ticker (string): Stock ticker.
+    :return: Dictionary with the main fundamental indicators.
+    """
+
+    url = 'https://www.fundamentus.com.br/detalhes.php'
+    params = {'papel': ticker}
+
+    main_pipeline = Fundamentus(url=url, params=params)
+    response = main_pipeline.get_stock_information()
+
+    return response
 
 
 #pylint: disable=too-many-locals
 #pylint: disable=too-many-branches
 #pylint: disable=too-many-statements
-def get_panels(information: dict) -> list:
+def create_panels(ticker: str) -> list:
     """Get panels with the main fundamental indicators.
 
-    :param information (dict): Dictionary with the main fundamental indicators.
-    :return: List with the main fundamental indicators.
+    :param ticker (string): Stock ticker.
+    :return: List of panels.
     """
+
+    # Get the stock information.
+    information = get_information(ticker)
 
     # Extract the information from the response.
     cotacao = information.transformed_information['cotacao']
