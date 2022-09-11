@@ -107,7 +107,7 @@ __MOBILE_ANDROID_USER_AGENTS = [
     "Mozilla/5.0 (Linux; Android 10; Wildfire U20 5G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.136 Mobile Safari/537.36",
     # HTC One X10
     "Mozilla/5.0 (Linux; Android 6.0; HTC One X10 Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.98 Mobile Safari/537.36",
-    #HTC One M9
+    # HTC One M9
     "Mozilla/5.0 (Linux; Android 6.0; HTC One M9 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.3"
 ]
 
@@ -155,7 +155,7 @@ __WINDOWS_PHONE_USER_AGENTS = [
 
 # Tablet User Agents
 __TABLET_USER_AGENTS = [
-    #Samsung Galaxy Tab S8 Ultra
+    # Samsung Galaxy Tab S8 Ultra
     "Mozilla/5.0 (Linux; Android 12; SM-X906C Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.119 Mobile Safari/537.36",
     # Lenovo Yoga Tab 11
     "Mozilla/5.0 (Linux; Android 11; Lenovo YT-J706X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",

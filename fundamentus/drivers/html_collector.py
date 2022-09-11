@@ -50,8 +50,11 @@ class HtmlCollector(HtmlCollectorInterface):
         # 2 - Indicadores fundamentalistas
         # 3 - Balanço Patrimonial
         # 4 - Demonstrativos de resultados
-        stocks_information, market_value, fundamentalist_indicators, \
-        balance_sheet, demonstrative_results = tables
+        stocks_information, \
+            market_value, \
+            fundamentalist_indicators, \
+            balance_sheet, \
+            demonstrative_results = tables
 
         # Extraindo as informações básicas a ação.
         stocks_information_data = stocks_information.find_all(

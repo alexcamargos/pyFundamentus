@@ -18,6 +18,7 @@
 
 """Extract Exception."""
 
+
 class ExtractException(Exception):
     """Exception class for extract stage."""
 

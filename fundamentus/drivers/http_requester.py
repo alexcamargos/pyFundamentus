@@ -44,8 +44,8 @@ class HttpRequester(HttpRequesterInterface):
         self.__headers = {"User-Agent": get_random_user_agent()}
         self.__fundamentus_request = namedtuple('Fundamentus',
                                                 ['status_code',
-                                                'request',
-                                                'response'])
+                                                 'request',
+                                                 'response'])
 
     def __send_http_request(self,
                             prepared_request: Type[requests.PreparedRequest]

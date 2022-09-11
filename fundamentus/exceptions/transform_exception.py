@@ -18,6 +18,7 @@
 
 """Transform Exception."""
 
+
 class TransformException(Exception):
     """Exception class for transform stage."""
 
