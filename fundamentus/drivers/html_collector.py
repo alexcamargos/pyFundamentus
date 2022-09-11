@@ -51,7 +51,7 @@ class HtmlCollector(HtmlCollectorInterface):
         # 3 - Balanço Patrimonial
         # 4 - Demonstrativos de resultados
         stocks_information, market_value, fundamentalist_indicators, \
-            balance_sheet, demonstrative_results = tables
+        balance_sheet, demonstrative_results = tables
 
         # Extraindo as informações básicas a ação.
         stocks_information_data = stocks_information.find_all(
@@ -177,7 +177,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'preco_sobre_ebit': preco_sobre_ebit,
             'price_sales_ratio': price_sales_ratio,
             'preco_sobre_ativos': preco_sobre_ativos,
-            'preco_sobre_ativo_circulante_liquido':preco_sobre_ativo_circulante_liquido,
+            'preco_sobre_ativo_circulante_liquido': preco_sobre_ativo_circulante_liquido,
             'dividend_yield': dividend_yield,
             'enterprise_value_sobre_ebitda': enterprise_value_sobre_ebitda,
             'enterprise_value_sobre_ebit': enterprise_value_sobre_ebit,
@@ -190,7 +190,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'return_on_equity': return_on_equity,
             'return_invested_capital': return_invested_capital,
             'ebit_sobre_ativos_totais': ebit_sobre_ativos_totais,
-            'crescimento_receita_liquida_5_anos':crescimento_receita_liquida_5_anos,
+            'crescimento_receita_liquida_5_anos': crescimento_receita_liquida_5_anos,
             'giro_ativos': giro_ativos,
             'margem_bruta': margem_bruta,
             'margem_ebit': margem_ebit,
@@ -218,7 +218,7 @@ class HtmlCollector(HtmlCollectorInterface):
                 'lucro_liquido_ultimos_12_meses': lucro_liquido_ultimos_12_meses
             },
             '3_meses': {
-                'receita_liquida_ultimos_3_meses':receita_liquida_ultimos_3_meses,
+                'receita_liquida_ultimos_3_meses': receita_liquida_ultimos_3_meses,
                 'ebit_ultimos_3_meses': ebit_ultimos_3_meses,
                 'lucro_liquido_ultimos_3_meses': lucro_liquido_ultimos_3_meses
             }
