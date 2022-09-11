@@ -43,9 +43,9 @@ def get_information(ticker: str) -> TransformContract:
     return response
 
 
-#pylint: disable=too-many-locals
-#pylint: disable=too-many-branches
-#pylint: disable=too-many-statements
+# pylint: disable=too-many-locals
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
 def create_panels(ticker: str) -> list:
     """Get panels with the main fundamental indicators.
 
@@ -140,8 +140,8 @@ def create_panels(ticker: str) -> list:
     panel_profitability_indicators = []
     for key, value in indicadores_de_rentabilidade.items():
         if key in [
-                'margem_bruta', 'margem_ebit', 'margem_liquida',
-                'crescimento_receita_liquida_5_anos'
+            'margem_bruta', 'margem_ebit', 'margem_liquida',
+            'crescimento_receita_liquida_5_anos'
         ]:
             value = f'{value * 100:.2f}%'
 

@@ -16,9 +16,9 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
-#pylint: disable=line-too-long
-#pylint: disable=trailing-whitespace
-#pylint: disable=too-many-lines
+# pylint: disable=line-too-long
+# pylint: disable=trailing-whitespace
+# pylint: disable=too-many-lines
 
 __STATUS_CODE = 200
 

@@ -71,6 +71,6 @@ def test_extract_html_information_exception(requests_mock) -> None:
                                          collector=collector)
 
     try:
-        response = extractor.extract() #pylint: disable=unused-variable
+        response = extractor.extract()  # pylint: disable=unused-variable
     except ExtractException as exception:
         assert isinstance(exception, ExtractException)

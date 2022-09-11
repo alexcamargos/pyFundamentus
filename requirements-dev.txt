@@ -16,6 +16,7 @@ coverage==6.4.4
 cryptography==38.0.1
 dill==0.3.5.1
 distlib==0.3.6
+docopt==0.6.2
 docutils==0.19
 exceptiongroup==1.0.0rc9
 fastapi==0.82.0
@@ -49,6 +50,7 @@ Pygments==2.13.0
 pylint==2.15.0
 pyparsing==3.0.9
 pytest==7.1.2
+python-coveralls==2.9.3
 python-dotenv==0.21.0
 PyYAML==6.0
 readme-renderer==37.1

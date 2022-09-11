@@ -28,7 +28,7 @@ from fundamentus.stages.transformation.transform_raw_information import \
     TransformRawInformation as Transformer
 
 
-#pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods
 class FundamentusPipeline:
 
     def __init__(self, url: str, params: dict) -> None:

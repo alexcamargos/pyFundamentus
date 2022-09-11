@@ -27,7 +27,7 @@ from fundamentus.drivers.interfaces.http_requester import \
 from fundamentus.exceptions.extract_exception import ExtractException
 
 
-#pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods
 class ExtractorHtmlInformation:
     """Represents a HTML information extractor."""
 
