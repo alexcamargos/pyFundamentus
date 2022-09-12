@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: html_collector_test.py
-#  Version: 0.0.1
+#  Version: 0.0.3
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -21,6 +21,23 @@
 from .html_collector import HtmlCollector
 from .mocks.html_collector import HTML_COLLECTOR_MOCK
 from .mocks.companies_list import COMPANIES_LIST_MOCK
+
+def test_collect_information() -> None:
+    """Test collect information."""
+
+    collector = HtmlCollector()
+    collect_information = collector.collect_information(
+        HTML_COLLECTOR_MOCK['content'])
+
+    assert isinstance(collect_information, dict)
+    assert isinstance(collect_information['cotacao'], dict)
+    assert isinstance(collect_information['informacoes_basicas'], dict)
+    assert isinstance(collect_information['oscilacoes'], dict)
+    assert isinstance(collect_information['indicadores_de_valuation'], dict)
+    assert isinstance(collect_information['indicadores_de_rentabilidade'], dict)
+    assert isinstance(collect_information['indicadores_de_endividamento'], dict)
+    assert isinstance(collect_information['balanco_patrimonial'], dict)
+    assert isinstance(collect_information['demonstrativo_de_resultados'], dict)
 
 
 def test_collect_information_keys_results() -> None:
