@@ -265,3 +265,31 @@ class HtmlCollector(HtmlCollectorInterface):
             })
 
         return companies_list
+
+    @staticmethod
+    def collect_list_of_property_funds(html: str) -> list[dict]:
+        """Collect list of companies from Fundamentus website.
+
+         param: html (str): HTML content.
+        :return: list: list of companies collected.
+        """
+
+        soup = bs(html, 'html.parser')
+        tables = soup.find_all('table', {
+            'class':
+            'table table-default table-sort table-resultados-trimestrais'
+        })
+        funds = tables[1].find_all('tr')
+
+        funds_list = []
+        for fund in funds[1:]:
+            fund_code, fund_name = fund.find_all('td')
+            fund_link = fund_code.find('a')['href']
+
+            funds_list.append({
+                'code': fund_code.text,
+                'name': fund_name.text,
+                'link': fund_link
+            })
+
+        return funds_list
