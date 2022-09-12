@@ -27,7 +27,6 @@ from bs4 import BeautifulSoup as bs
 from .interfaces.html_collector import HtmlCollectorInterface
 
 
-# pylint: disable=too-few-public-methods
 class HtmlCollector(HtmlCollectorInterface):
     """Represents a HTML collector."""
 
@@ -237,3 +236,32 @@ class HtmlCollector(HtmlCollectorInterface):
             'balanco_patrimonial': balanco_patrimonial,
             'demonstrativo_de_resultados': demonstrativo_de_resultados
         }
+
+    @staticmethod
+    def collect_list_of_companies(html: str) -> list[dict]:
+        """Collect list of companies from Fundamentus website.
+
+         param: html (str): HTML content.
+        :return: list: list of companies collected.
+        """
+
+        soup = bs(html, 'html.parser')
+        tables = soup.find_all('table', {
+            'class':
+            'table table-default table-sort table-resultados-trimestrais'
+        })
+        companies = tables[0].find_all('tr')
+
+        companies_list = []
+        for company in companies[1:]:
+            company_code, company_name, corporate_name = company.find_all('td')
+            company_link = company_code.find('a')['href']
+
+            companies_list.append({
+                'code': company_code.text,
+                'name': company_name.text,
+                'corporate_name': corporate_name.text,
+                'link': company_link
+            })
+
+        return companies_list

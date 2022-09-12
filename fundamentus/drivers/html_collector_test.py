@@ -20,6 +20,7 @@
 
 from .html_collector import HtmlCollector
 from .mocks.html_collector import HTML_COLLECTOR_MOCK
+from .mocks.companies_list import COMPANIES_LIST_MOCK
 
 
 def test_collect_information_keys_results() -> None:
@@ -133,3 +134,12 @@ def test_collect_information_keys_results() -> None:
         'lucro_liquido_ultimos_3_meses'
     ] == list(
         collect_information['demonstrativo_de_resultados']['3_meses'].keys())
+
+def test_collect_list_of_companies() -> None:
+    """Test collect list of companies."""
+
+    collector = HtmlCollector()
+    collect_list_of_companies = collector.collect_list_of_companies(COMPANIES_LIST_MOCK['content'])
+
+    assert isinstance(collect_list_of_companies, list)
+    assert isinstance(collect_list_of_companies[0], dict)
