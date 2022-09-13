@@ -1,6 +1,6 @@
 [project]
 name = "pyfundamentus"
-version = "0.0.1"
+version = "0.0.1a"
 authors = [
   { name="Alexsander Lopes Camargos", email="alcamargos@vivaldi.net" },
 ]
@@ -19,5 +19,5 @@ classifiers = [
 "Homepage" = "https://github.com/alexcamargos/pyFundamentus"
 "Bug Tracker" = "https://github.com/alexcamargos/pyFundamentus/issues"
 
-[tool.setuptools.package-dir]
-mypkg = "fundamentus"
+[tool.setuptools]
+packages = ["fundamentus"]
