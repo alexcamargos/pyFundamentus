@@ -15,11 +15,14 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
+
 """HTTP Collector.
 
 This module is responsible for collecting the HTML information from the response.
 
 """
+
+from typing import List
 
 from bs4 import BeautifulSoup as bs
 
@@ -49,7 +52,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'maximo_52_semanas': maximo_52_semanas,
         }
 
-    def __processing_of_basic_information(self, soups: list[bs]) -> dict:
+    def __processing_of_basic_information(self, soups: List[bs]) -> dict:
         """Process stocks information.
 
         :param soup (bs): BeautifulSoup object.
