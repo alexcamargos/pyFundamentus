@@ -30,3 +30,15 @@ class HtmlCollectorInterface(ABC):
         """Collect information from the html."""
 
         raise NotImplementedError("You should implement this method.")
+
+    @abstractmethod
+    def collect_list_of_companies(self, html: str) -> list[dict]:
+        """Collect list of companies from Fundamentus website."""
+
+        raise NotImplementedError("You should implement this method.")
+
+    @abstractmethod
+    def collect_list_of_property_funds(self, html: str) -> list[dict]:
+        """Collect list of companies from Fundamentus website."""
+
+        raise NotImplementedError("You should implement this method.")

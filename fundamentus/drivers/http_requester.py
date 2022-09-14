@@ -77,7 +77,6 @@ class HttpRequester(HttpRequesterInterface):
         """
 
         try:
-
             request = requests.Request(method="GET",
                                        url=self.__url,
                                        params=self.__params,

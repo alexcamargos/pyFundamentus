@@ -58,3 +58,37 @@ class ExtractorHtmlInformation:
                                    extraction_date=dt.today().toordinal())
         except Exception as exception:
             raise ExtractException(exception) from exception
+
+    def extract_companies(self) -> ExtractContract:
+        """Extract the information from the HTML.
+
+        :return: ExtractContract: Extracted information.
+        :raises ExtractException: If the extraction fails.
+        """
+
+        try:
+            html_information = self.__requester.make_request()
+            collect_information = self.__collector.collect_list_of_companies(
+                html_information.response.text)
+
+            return ExtractContract(raw_information=collect_information,
+                                   extraction_date=dt.today().toordinal())
+        except Exception as exception:
+            raise ExtractException(exception) from exception
+
+    def extract_property_funds(self) -> ExtractContract:
+        """Extract the information from the HTML.
+
+        :return: ExtractContract: Extracted information.
+        :raises ExtractException: If the extraction fails.
+        """
+
+        try:
+            html_information = self.__requester.make_request()
+            collect_information = self.__collector.collect_list_of_property_funds(
+                html_information.response.text)
+
+            return ExtractContract(raw_information=collect_information,
+                                   extraction_date=dt.today().toordinal())
+        except Exception as exception:
+            raise ExtractException(exception) from exception

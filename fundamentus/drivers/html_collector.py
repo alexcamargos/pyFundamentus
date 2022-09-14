@@ -318,8 +318,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'demonstrativo_de_resultados': demonstrativo_de_resultados
         }
 
-    @staticmethod
-    def collect_list_of_companies(html: str) -> list[dict]:
+    def collect_list_of_companies(self, html: str) -> list[dict]:
         """Collect list of companies from Fundamentus website.
 
          param: html (str): HTML content.
@@ -347,8 +346,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return companies_list
 
-    @staticmethod
-    def collect_list_of_property_funds(html: str) -> list[dict]:
+    def collect_list_of_property_funds(self, html: str) -> list[dict]:
         """Collect list of companies from Fundamentus website.
 
          param: html (str): HTML content.
