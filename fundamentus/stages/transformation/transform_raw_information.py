@@ -15,7 +15,6 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Transform raw information from the HTTP requester."""
 
 from decimal import Decimal
@@ -28,26 +27,6 @@ from fundamentus.exceptions.transform_exception import TransformException
 # pylint: disable=too-few-public-methods
 class TransformRawInformation:
     """Represents a raw information transformer."""
-
-    def transform(self,
-                  extract_contract: ExtractContract) -> TransformContract:
-        """Transform the raw information.
-
-        :param extract_contract: ExtractContract: Extract contract.
-        :return: TransformContract: Transform contract.
-        :raises TransformException: if the transform fails.
-        """
-
-        try:
-            transform_information = self.__make_transformation(
-                extract_contract.raw_information)
-
-            transform_contract = TransformContract(
-                transformed_information=transform_information)
-
-            return transform_contract
-        except Exception as exception:
-            raise TransformException(exception) from exception
 
     def __remove_new_lines(self, string: str) -> str:
         """Remove all newline from the string.
@@ -183,8 +162,8 @@ class TransformRawInformation:
                 indicadores_de_valuation['preco_sobre_lucro']))
         indicadores_de_valuation[
             'preco_sobre_valor_patrimonial'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_valuation['preco_sobre_valor_patrimonial']))
+                self.__string_processing(
+                    indicadores_de_valuation['preco_sobre_valor_patrimonial']))
         indicadores_de_valuation['preco_sobre_ebit'] = self.__to_decimal(
             self.__string_processing(
                 indicadores_de_valuation['preco_sobre_ebit']))
@@ -193,19 +172,19 @@ class TransformRawInformation:
                 indicadores_de_valuation['preco_sobre_ativos']))
         indicadores_de_valuation[
             'preco_sobre_ativo_circulante_liquido'] = self.__to_decimal(
-            self.__string_processing(indicadores_de_valuation[
-                                         'preco_sobre_ativo_circulante_liquido']))
+                self.__string_processing(indicadores_de_valuation[
+                    'preco_sobre_ativo_circulante_liquido']))
         indicadores_de_valuation[
             'preco_sobre_capital_giro'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_valuation['preco_sobre_capital_giro']))
+                self.__string_processing(
+                    indicadores_de_valuation['preco_sobre_capital_giro']))
         indicadores_de_valuation['lucro_por_acao'] = self.__to_decimal(
             self.__string_processing(
                 indicadores_de_valuation['lucro_por_acao']))
         indicadores_de_valuation[
             'valor_patrimonial_por_acao'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_valuation['valor_patrimonial_por_acao']))
+                self.__string_processing(
+                    indicadores_de_valuation['valor_patrimonial_por_acao']))
         indicadores_de_valuation['price_sales_ratio'] = self.__to_decimal(
             self.__string_processing(
                 indicadores_de_valuation['price_sales_ratio']))
@@ -214,29 +193,29 @@ class TransformRawInformation:
                 indicadores_de_valuation['dividend_yield']))
         indicadores_de_valuation[
             'enterprise_value_sobre_ebitda'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_valuation['enterprise_value_sobre_ebitda']))
+                self.__string_processing(
+                    indicadores_de_valuation['enterprise_value_sobre_ebitda']))
         indicadores_de_valuation[
             'enterprise_value_sobre_ebit'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_valuation['enterprise_value_sobre_ebit']))
+                self.__string_processing(
+                    indicadores_de_valuation['enterprise_value_sobre_ebit']))
 
         # Processando informações de indicadores de rentabilidade.
         indicadores_de_rentabilidade[
             'return_invested_capital'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_rentabilidade['return_invested_capital']))
+                self.__string_processing(
+                    indicadores_de_rentabilidade['return_invested_capital']))
         indicadores_de_rentabilidade['return_on_equity'] = self.__to_decimal(
             self.__string_processing(
                 indicadores_de_rentabilidade['return_on_equity']))
         indicadores_de_rentabilidade[
             'ebit_sobre_ativos_totais'] = self.__to_decimal(
-            self.__string_processing(
-                indicadores_de_rentabilidade['ebit_sobre_ativos_totais']))
+                self.__string_processing(
+                    indicadores_de_rentabilidade['ebit_sobre_ativos_totais']))
         indicadores_de_rentabilidade[
             'crescimento_receita_liquida_5_anos'] = self.__to_decimal(
-            self.__string_processing(indicadores_de_rentabilidade[
-                                         'crescimento_receita_liquida_5_anos']))
+                self.__string_processing(indicadores_de_rentabilidade[
+                    'crescimento_receita_liquida_5_anos']))
         indicadores_de_rentabilidade['giro_ativos'] = self.__to_decimal(
             self.__string_processing(
                 indicadores_de_rentabilidade['giro_ativos']))
@@ -279,32 +258,32 @@ class TransformRawInformation:
             '12_meses']
         demonstrativo_de_resultados_12_meses[
             'receita_liquida_ultimos_12_meses'] = self.__to_decimal(
-            self.__string_processing(demonstrativo_de_resultados_12_meses[
-                                         'receita_liquida_ultimos_12_meses']))
+                self.__string_processing(demonstrativo_de_resultados_12_meses[
+                    'receita_liquida_ultimos_12_meses']))
         demonstrativo_de_resultados_12_meses[
             'ebit_ultimos_12_meses'] = self.__to_decimal(
-            self.__string_processing(demonstrativo_de_resultados_12_meses[
-                                         'ebit_ultimos_12_meses']))
+                self.__string_processing(demonstrativo_de_resultados_12_meses[
+                    'ebit_ultimos_12_meses']))
         demonstrativo_de_resultados_12_meses[
             'lucro_liquido_ultimos_12_meses'] = self.__to_decimal(
-            self.__string_processing(demonstrativo_de_resultados_12_meses[
-                                         'lucro_liquido_ultimos_12_meses']))
+                self.__string_processing(demonstrativo_de_resultados_12_meses[
+                    'lucro_liquido_ultimos_12_meses']))
         # Últimos 3 meses.
         demonstrativo_de_resultados_3_meses = demonstrativo_de_resultados[
             '3_meses']
         demonstrativo_de_resultados_3_meses[
             'receita_liquida_ultimos_3_meses'] = self.__to_decimal(
-            self.__string_processing(demonstrativo_de_resultados_3_meses[
-                                         'receita_liquida_ultimos_3_meses']))
+                self.__string_processing(demonstrativo_de_resultados_3_meses[
+                    'receita_liquida_ultimos_3_meses']))
         demonstrativo_de_resultados_3_meses[
             'ebit_ultimos_3_meses'] = self.__to_decimal(
-            self.__string_processing(
-                demonstrativo_de_resultados_3_meses['ebit_ultimos_3_meses']
-            ))
+                self.__string_processing(
+                    demonstrativo_de_resultados_3_meses['ebit_ultimos_3_meses']
+                ))
         demonstrativo_de_resultados_3_meses[
             'lucro_liquido_ultimos_3_meses'] = self.__to_decimal(
-            self.__string_processing(demonstrativo_de_resultados_3_meses[
-                                         'lucro_liquido_ultimos_3_meses']))
+                self.__string_processing(demonstrativo_de_resultados_3_meses[
+                    'lucro_liquido_ultimos_3_meses']))
 
         return {
             'cotacao': cotacao,
@@ -316,3 +295,23 @@ class TransformRawInformation:
             'balanco_patrimonial': balanco_patrimonial,
             'demonstrativo_de_resultados': demonstrativo_de_resultados
         }
+
+    def transform_information(
+            self, extract_contract: ExtractContract) -> TransformContract:
+        """Transform the raw information.
+
+        :param extract_contract: ExtractContract: Extract contract.
+        :return: TransformContract: Transform contract.
+        :raises TransformException: if the transform fails.
+        """
+
+        try:
+            transform_information = self.__make_transformation(
+                extract_contract.raw_information)
+
+            transform_contract = TransformContract(
+                transformed_information=transform_information)
+
+            return transform_contract
+        except Exception as exception:
+            raise TransformException(exception) from exception
