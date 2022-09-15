@@ -95,7 +95,7 @@ class TransformRawInformation:
 
         return Decimal(value) if value is not None else None
 
-    # pylint: disable=too-many-statements
+        # pylint: disable=too-many-statements
     def __make_transformation(self, raw_information: dict) -> dict:
         """Make the transformation.
 
@@ -296,6 +296,24 @@ class TransformRawInformation:
             'demonstrativo_de_resultados': demonstrativo_de_resultados
         }
 
+    def __make_transformation_companies(self, raw_information: str) -> dict:
+        """Make the transformation.
+
+        :param raw_information: raw information to be processed.
+        :return: processed information.
+        """
+
+        transformed = []
+        for information in raw_information:
+            code = self.__remove_all_spaces(self.__remove_new_lines(information['code']))
+            name = self.__remove_new_lines(information['name']).strip().upper()
+            partial_link = self.__remove_all_spaces(self.__remove_new_lines(information['link']))
+            full_link = f'https://www.fundamentus.com.br/{partial_link}'
+
+            transformed.append({'code': code, 'name': name, 'link': full_link})
+
+        return transformed
+
     def transform_information(
             self, extract_contract: ExtractContract) -> TransformContract:
         """Transform the raw information.
@@ -307,6 +325,26 @@ class TransformRawInformation:
 
         try:
             transform_information = self.__make_transformation(
+                extract_contract.raw_information)
+
+            transform_contract = TransformContract(
+                transformed_information=transform_information)
+
+            return transform_contract
+        except Exception as exception:
+            raise TransformException(exception) from exception
+
+    def transform_companies(self, extract_contract: ExtractContract) -> TransformContract:
+        """Transform the raw information of companies.
+
+        :param extract_contract: ExtractContract: Extract contract.
+        :return: TransformContract: Transform contract.
+
+        :raises TransformException: if the transform fails.
+        """
+
+        try:
+            transform_information = self.__make_transformation_companies(
                 extract_contract.raw_information)
 
             transform_contract = TransformContract(
