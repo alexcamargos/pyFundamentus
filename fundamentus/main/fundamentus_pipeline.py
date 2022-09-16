@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: fundamentus_pipeline.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -51,3 +51,13 @@ class FundamentusPipeline:
         extract_contract = self.__extractor.extract()
 
         return self.__transformer.transform_information(extract_contract)
+
+    def list_all_companies(self) -> list:
+        """Get the list of all companies.
+
+        :return: list: List of all companies.
+        """
+
+        extract_contract = self.__extractor.extract_companies()
+
+        return self.__transformer.transform_companies(extract_contract)

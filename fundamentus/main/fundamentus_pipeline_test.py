@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: fundamentus_pipeline.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -15,10 +15,10 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Test the FundamentusPipeline."""
 
 from fundamentus.contracts.transform_contract import TransformContract
+from fundamentus.drivers.mocks.companies_list import COMPANIES_LIST_MOCK
 
 from .fundamentus_pipeline import FundamentusPipeline
 
@@ -48,3 +48,21 @@ def test_get_stock_information() -> None:
                       dict)
     assert isinstance(
         response.transformed_information['demonstrativo_de_resultados'], dict)
+
+
+def test_list_all_companies(requests_mock) -> None:
+    """Test the list_all_companies method."""
+
+    url = 'https://www.fundamentus.com.br/detalhes.php'
+    payload = {'interface': 'mobile'}
+
+    requests_mock.get(url=url,
+                      status_code=COMPANIES_LIST_MOCK['status_code'],
+                      text=COMPANIES_LIST_MOCK['content'])
+
+    main_pipeline = FundamentusPipeline(url=url, params=payload)
+    response = main_pipeline.list_all_companies()
+
+    assert isinstance(response, TransformContract)
+    assert isinstance(response.transformed_information, list)
+    assert isinstance(response.transformed_information[0], dict)
