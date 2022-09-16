@@ -22,6 +22,8 @@
 from fundamentus.contracts.mocks.extract_contract import extract_contract_mock
 from fundamentus.contracts.mocks.extract_contract_companies import \
     EXTRACT_CONTRACT_COMPANIES_MOCK
+from fundamentus.contracts.mocks.extract_contract_property_funds import \
+    EXTRACT_CONTRACT_PROPERTY_FUNDS_MOCK
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.exceptions.transform_exception import TransformException
 
@@ -139,6 +141,35 @@ def test_transform_raw_information_of_companies() -> None:
 
 
 def test_transform_raw_information_of_companies_exception() -> None:
+    """Test of transform raw information from the HTTP requester.
+
+    This test should raise an exception because the raw
+    information is not a valid.
+
+    :raises: TransformException
+    """
+
+    transform = TransformRawInformation()
+
+    try:
+        transformed = transform.transform_information([])  # pylint: disable=unused-variable
+    except TransformException as exception:
+        assert isinstance(exception, TransformException)
+
+
+def test_transform_raw_information_of_property_funds() -> None:
+    """Test of transform raw information from the HTTP requester."""
+
+    transform = TransformRawInformation()
+    transformed = transform.transform_property_funds(EXTRACT_CONTRACT_PROPERTY_FUNDS_MOCK)
+
+    assert isinstance(transformed, TransformContract)
+    assert isinstance(transformed.transformed_information, list)
+    assert isinstance(transformed.transformed_information[0], dict)
+
+    assert ['code', 'name', 'link'] == list(transformed.transformed_information[0].keys())
+
+def test_transform_raw_information_of_property_funds_exception() -> None:
     """Test of transform raw information from the HTTP requester.
 
     This test should raise an exception because the raw

@@ -305,9 +305,32 @@ class TransformRawInformation:
 
         transformed = []
         for information in raw_information:
-            code = self.__remove_all_spaces(self.__remove_new_lines(information['code']))
+            code = self.__remove_all_spaces(
+                self.__remove_new_lines(information['code']))
             name = self.__remove_new_lines(information['name']).strip().upper()
-            partial_link = self.__remove_all_spaces(self.__remove_new_lines(information['link']))
+            partial_link = self.__remove_all_spaces(
+                self.__remove_new_lines(information['link']))
+            full_link = f'https://www.fundamentus.com.br/{partial_link}'
+
+            transformed.append({'code': code, 'name': name, 'link': full_link})
+
+        return transformed
+
+    def __make_transformation_property_funds(self,
+                                             raw_information: str) -> dict:
+        """Make the transformation.
+
+        :param raw_information: raw information to be processed.
+        :return: processed information.
+        """
+
+        transformed = []
+        for information in raw_information:
+            code = self.__remove_all_spaces(
+                self.__remove_new_lines(information['code']))
+            name = self.__remove_new_lines(information['name']).strip().upper()
+            partial_link = self.__remove_all_spaces(
+                self.__remove_new_lines(information['link']))
             full_link = f'https://www.fundamentus.com.br/{partial_link}'
 
             transformed.append({'code': code, 'name': name, 'link': full_link})
@@ -334,7 +357,8 @@ class TransformRawInformation:
         except Exception as exception:
             raise TransformException(exception) from exception
 
-    def transform_companies(self, extract_contract: ExtractContract) -> TransformContract:
+    def transform_companies(
+            self, extract_contract: ExtractContract) -> TransformContract:
         """Transform the raw information of companies.
 
         :param extract_contract: ExtractContract: Extract contract.
@@ -347,6 +371,26 @@ class TransformRawInformation:
             transform_information = self.__make_transformation_companies(
                 extract_contract.raw_information)
 
+            transform_contract = TransformContract(
+                transformed_information=transform_information)
+
+            return transform_contract
+        except Exception as exception:
+            raise TransformException(exception) from exception
+
+    def transform_property_funds(
+            self, extract_contract: ExtractContract) -> TransformContract:
+        """Transform the raw information of property funds.
+
+        :param extract_contract: ExtractContract: Extract contract.
+        :return: TransformContract: Transform contract.
+
+        :raises TransformException: if the transform fails.
+        """
+
+        try:
+            transform_information = self.__make_transformation_property_funds(
+                extract_contract.raw_information)
             transform_contract = TransformContract(
                 transformed_information=transform_information)
 
