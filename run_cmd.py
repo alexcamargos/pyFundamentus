@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: run_cmd.py
-#  Version: 0.0.4
+#  Version: 0.0.5
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -26,6 +26,8 @@ from rich.columns import Columns
 from rich.console import Console
 from rich.panel import Panel
 
+from fundamentus._version import __version__ as version
+
 
 def get_arguments() -> argparse.Namespace:
     """Argument parser.
@@ -41,6 +43,7 @@ def get_arguments() -> argparse.Namespace:
 
     # Add the arguments.
     parser.add_argument('ticker', type=str, help='Stock ticker.')
+    parser.add_argument('--version', '-v', action='version', version=f'pyfundamentus {version}')
 
     return parser.parse_args()
 
