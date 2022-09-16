@@ -22,67 +22,80 @@ from ..extract_contract import ExtractContract
 __EXTRACTION_DATE = dt.now().toordinal()
 
 __RAW_INFORMATION = [{
-    'code': 'ABCP11',
-    'name': 'FII GRAND PLAZA SHOPPING',
-    'link': 'detalhes.php?papel=ABCP11'
+    'code': 'AALR3 ',
+    'name': 'ALLIAR',
+    'corporate_name': 'CENTRO DE IMAGEM DIAGNOSTICOS S.A.',
+    'link': 'detalhes.php?papel=AALR3 '
 }, {
-    'code': 'AEFI11',
-    'name': 'FII RIO BRAVO RENDA EDUCACIONAL- FII',
-    'link': 'detalhes.php?papel=AEFI11'
+    'code': 'ABCB3',
+    'name': 'ABC Brasil',
+    'corporate_name': 'BANCO ABC BRASIL S/A',
+    'link': 'detalhes.php?papel=ABCB3'
 }, {
-    'code': 'AFCR11',
-    'name': 'CARTESIA RECEBÍVEIS IMOBILIÁRIOS - FII',
-    'link': 'detalhes.php?papel=AFCR11'
+    'code': 'ABCB4',
+    'name': 'ABC Brasil',
+    'corporate_name': 'BANCO ABC BRASIL S/A',
+    'link': 'detalhes.php?papel=ABCB4'
 }, {
-    'code': 'AFHI11',
-    'name': 'AF INVEST CRI FII - RECEBÍVEIS IMOBILIÁRIOS',
-    'link': 'detalhes.php?papel=AFHI11'
+    'code': 'ABEV3',
+    'name': 'AMBEV S/A',
+    'corporate_name': 'AMBEV S.A.',
+    'link': 'detalhes.php?papel=ABEV3'
 }, {
-    'code': 'AFOF11',
-    'name': 'ALIANZA MULTIESTRATÉGIA FII',
-    'link': 'detalhes.php?papel=AFOF11'
+    'code': 'ABRE3',
+    'name': 'SOMOS EDUCA',
+    'corporate_name': 'SOMOS EDUCAÇÃO S.A.',
+    'link': 'detalhes.php?papel=ABRE3'
 }, {
-    'code': 'AGCX11',
-    'name': 'FII RIO BRAVO RENDA VAREJO - FII',
-    'link': 'detalhes.php?papel=AGCX11'
+    'code': 'ABYA3',
+    'name': 'ABYARA',
+    'corporate_name': 'ABYARA PLANEJAMENTO IMOBILIARIO S.A.',
+    'link': 'detalhes.php?papel=ABYA3'
 }, {
-    'code': 'AGRX11',
-    'name':
-    'FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS'
-    'AGROINDUSTRIAIS EXES ARAGUAIA - FIAGRO - IMOBILIÁRIO',
-    'link': 'detalhes.php?papel=AGRX11'
+    'code': 'ACES3',
+    'name': 'ARCELORMITTAL INOX BRASIL',
+    'corporate_name': 'ARCELORMITTAL INOX BRASIL S.A.',
+    'link': 'detalhes.php?papel=ACES3'
 }, {
-    'code': 'AIEC11',
-    'name': 'AUTONOMY EDIFÍCIOS CORPORATIVOS FII',
-    'link': 'detalhes.php?papel=AIEC11'
+    'code': 'ACES4',
+    'name': 'ARCELORMITTAL INOX BRASIL',
+    'corporate_name': 'ARCELORMITTAL INOX BRASIL S.A.',
+    'link': 'detalhes.php?papel=ACES4'
 }, {
-    'code': 'ALMI11',
-    'name': 'FII TORRE ALMIRANTE',
-    'link': 'detalhes.php?papel=ALMI11'
+    'code': 'ADHM3',
+    'name': 'ADVANCED-DH',
+    'corporate_name': 'ADVANCED DIGITAL HEALTH MEDICINA PREVENTIVA S.A.',
+    'link': 'detalhes.php?papel=ADHM3'
 }, {
-    'code': 'ALZR11',
-    'name': 'ALIANZA TRUST RENDA IMOBILIARIA - FII',
-    'link': 'detalhes.php?papel=ALZR11'
+    'code': 'AEDU11',
+    'name': 'ANHANGUERA EDUCACIONAL PARTICIPAÇÕES SA',
+    'corporate_name': 'ANHANGUERA EDUCACIONAL PARTICIPAÇÕES S.A',
+    'link': 'detalhes.php?papel=AEDU11'
 }, {
-    'code': 'ALZR12',
-    'name': 'ALIANZA TRUST RENDA IMOBILIARIA - FII',
-    'link': 'detalhes.php?papel=ALZR12'
+    'code': 'AEDU3',
+    'name': 'ANHANGUERA EDUCACIONAL PARTICIPAÇÕES SA',
+    'corporate_name': 'ANHANGUERA EDUCACIONAL PARTICIPAÇÕES S.A',
+    'link': 'detalhes.php?papel=AEDU3'
 }, {
-    'code': 'ANCR11',
-    'name': 'FII ANCAR IC',
-    'link': 'detalhes.php?papel=ANCR11'
+    'code': 'AELP3',
+    'name': 'AES ELPA',
+    'corporate_name': 'AES ELPA SA',
+    'link': 'detalhes.php?papel=AELP3'
 }, {
-    'code': 'APTO11',
-    'name': 'NAVI RESIDENCIAL FII',
-    'link': 'detalhes.php?papel=APTO11'
+    'code': 'AERI3',
+    'name': 'AERIS',
+    'corporate_name': 'AERIS IND. E COM. DE EQUIP. GERACAO DE ENERGIA S/A',
+    'link': 'detalhes.php?papel=AERI3'
 }, {
-    'code': 'ARCT11',
-    'name': 'RIZA ARCTIUM REAL ESTATE FII',
-    'link': 'detalhes.php?papel=ARCT11'
+    'code': 'AESB3',
+    'name': 'AES BRASIL',
+    'corporate_name': 'AES BRASIL ENERGIA S.A.',
+    'link': 'detalhes.php?papel=AESB3'
 }, {
-    'code': 'ARRI11',
-    'name': 'FUNDO DE INVESTIMENTO ÁTRIO REIT RECEBÍVEIS IMOBILIÁRIOS',
-    'link': 'detalhes.php?papel=ARRI11'
+    'code': 'AESL3',
+    'name': 'AES SUL DISTRIB. GAÚCHA DE ENERGIA S.A.',
+    'corporate_name': 'AES SUL DISTRIB. GAÚCHA DE ENERGIA S.A.',
+    'link': 'detalhes.php?papel=AESL3'
 }]
 
 EXTRACT_CONTRACT_COMPANIES_MOCK = ExtractContract(__RAW_INFORMATION,

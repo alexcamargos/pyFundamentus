@@ -132,11 +132,13 @@ def test_transform_raw_information_of_companies() -> None:
     transformed = transform.transform_companies(
         EXTRACT_CONTRACT_COMPANIES_MOCK)
 
+    print(transformed.transformed_information[0])
+
     assert isinstance(transformed, TransformContract)
     assert isinstance(transformed.transformed_information, list)
     assert isinstance(transformed.transformed_information[0], dict)
 
-    assert ['code', 'name',
+    assert ['code', 'name', 'corporate_name',
             'link'] == list(transformed.transformed_information[0].keys())
 
 

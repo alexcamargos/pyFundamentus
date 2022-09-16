@@ -308,11 +308,17 @@ class TransformRawInformation:
             code = self.__remove_all_spaces(
                 self.__remove_new_lines(information['code']))
             name = self.__remove_new_lines(information['name']).strip().upper()
+            corporate_name = self.__remove_new_lines(information['corporate_name']).strip().upper()
             partial_link = self.__remove_all_spaces(
                 self.__remove_new_lines(information['link']))
             full_link = f'https://www.fundamentus.com.br/{partial_link}'
 
-            transformed.append({'code': code, 'name': name, 'link': full_link})
+            transformed.append({
+                'code': code,
+                'name': name,
+                'corporate_name': corporate_name,
+                'link': full_link
+            })
 
         return transformed
 
