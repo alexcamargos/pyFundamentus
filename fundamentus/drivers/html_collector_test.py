@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: html_collector_test.py
-#  Version: 0.0.3
+#  Version: 0.0.7
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly

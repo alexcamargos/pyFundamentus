@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: extractor_html_information_test.py
-#  Version: 0.0.2
+#  Version: 0.0.5
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly

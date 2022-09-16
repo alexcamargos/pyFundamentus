@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.5
+#  Version: 0.0.7
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
