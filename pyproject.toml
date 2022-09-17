@@ -1,6 +1,6 @@
 [project]
 name = "pyfundamentus"
-version = "0.0.1a"
+version = "0.0.3"
 authors = [
   { name="Alexsander Lopes Camargos", email="alcamargos@vivaldi.net" },
 ]
