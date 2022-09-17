@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: textualize.py
-#  Version: 0.0.6
+#  Version: 0.0.8
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -16,15 +16,68 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
-"""Fundamentus Command line interface."""
+"""Rich's Fundamentus Command line interface."""
 
 from decimal import Decimal
 
 from rich.panel import Panel
+from rich.table import Table
+
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.main.fundamentus_pipeline import \
     FundamentusPipeline as Fundamentus
 from fundamentus.utils.indicator_names import INDICATOR_NAME
+
+
+def list_all_companies() -> Table:
+    '''List all companies.
+
+    :return: Table with all companies.
+    '''
+
+    url = 'https://www.fundamentus.com.br/detalhes.php'
+    payload = {'interface': 'mobile'}
+
+    main_pipeline = Fundamentus(url=url, params=payload)
+    response = main_pipeline.list_all_companies()
+
+    # Table with information of all companies.
+    table = Table(title='Todas as Empresas', show_header=True, expand=True)
+    table.add_column('Código', style='cyan', vertical='middle', no_wrap=True)
+    table.add_column('Nome', style='cyan', vertical='middle', no_wrap=True)
+    table.add_column('Razão Social',
+                     style='cyan',
+                     vertical='middle',
+                     no_wrap=True)
+
+    for company in response[0]:
+        table.add_row(company['code'], company['name'],
+                      company['corporate_name'])
+
+    return table
+
+
+def list_all_property_funds() -> Table:
+    '''List all companies.
+
+    :return: Table with all companies.
+    '''
+
+    url = 'https://www.fundamentus.com.br/detalhes.php'
+    payload = {'interface': 'mobile'}
+
+    main_pipeline = Fundamentus(url=url, params=payload)
+    response = main_pipeline.list_all_property_funds()
+
+    # Table with information of all companies.
+    table = Table(title='Todas as Empresas', show_header=True, expand=True)
+    table.add_column('Código', style='cyan', vertical='middle', no_wrap=True)
+    table.add_column('Nome', style='cyan', vertical='middle', no_wrap=True)
+
+    for company in response[0]:
+        table.add_row(company['code'], company['name'])
+
+    return table
 
 
 def get_information(ticker: str) -> TransformContract:
@@ -46,7 +99,7 @@ def get_information(ticker: str) -> TransformContract:
 # pylint: disable=too-many-locals
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
-def create_panels(ticker: str) -> list:
+def list_fundamental_indicators(ticker: str) -> list:
     """Get panels with the main fundamental indicators.
 
     :param ticker (string): Stock ticker.
@@ -140,8 +193,8 @@ def create_panels(ticker: str) -> list:
     panel_profitability_indicators = []
     for key, value in indicadores_de_rentabilidade.items():
         if key in [
-            'margem_bruta', 'margem_ebit', 'margem_liquida',
-            'crescimento_receita_liquida_5_anos'
+                'margem_bruta', 'margem_ebit', 'margem_liquida',
+                'crescimento_receita_liquida_5_anos'
         ]:
             value = f'{value * 100:.2f}%'
 
@@ -213,13 +266,8 @@ def create_panels(ticker: str) -> list:
                   expand=True))
 
     return [
-        panel_main_information,
-        panel_basic_information,
-        panel_oscillations,
-        panel_valuation_indicators,
-        panel_profitability_indicators,
-        panel_debt_indicators,
-        panel_balance_sheet,
-        panel_income_statement_03_months,
-        panel_income_statement_12_months
+        panel_main_information, panel_basic_information, panel_oscillations,
+        panel_valuation_indicators, panel_profitability_indicators,
+        panel_debt_indicators, panel_balance_sheet,
+        panel_income_statement_03_months, panel_income_statement_12_months
     ]
