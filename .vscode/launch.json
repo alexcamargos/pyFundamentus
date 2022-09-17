@@ -2,11 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "List All Companies",
+      "type": "python",
+      "request": "launch",
+      "program": "run_cmd.py",
+      "args": "--list companies",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
       "program": "${file}",
-      "args": "VALE3",
+      "args": "-t VALE3",
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}",
       "env": { "PYTHONPATH": "${workspaceRoot}" }
