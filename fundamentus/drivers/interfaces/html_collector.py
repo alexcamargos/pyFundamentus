@@ -26,8 +26,8 @@ class HtmlCollectorInterface(ABC):
     """Represents a complete HTML collector."""
 
     @abstractmethod
-    def collect_information(self, html: str) -> dict:
-        """Collect information from the html."""
+    def collect_all_information(self, html: str) -> dict:
+        """Collect all information from single stock from Fundamentus website."""
 
         raise NotImplementedError("You should implement this method.")
 
