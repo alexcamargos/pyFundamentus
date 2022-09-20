@@ -35,7 +35,7 @@ def test_extract_html_information(requests_mock) -> None:
     """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'papel': 'MGLU3'}
+    payload = {'papel': 'MGLU3', 'interface': 'mobile'}
 
     requests_mock.get(url=url,
                       status_code=HTML_COLLECTOR_MOCK['status_code'],
@@ -45,7 +45,7 @@ def test_extract_html_information(requests_mock) -> None:
     collector = HtmlCollector()
     extractor = ExtractorHtmlInformation(requester=requester,
                                          collector=collector)
-    response = extractor.extract()
+    response = extractor.extract_all_information()
 
     assert isinstance(response, ExtractContract)
     assert isinstance(response.extraction_date, int)
@@ -59,7 +59,7 @@ def test_extract_html_information_exception(requests_mock) -> None:
     """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'papel': 'MGLU3'}
+    payload = {'papel': 'MGLU3', 'interface': 'mobile'}
 
     requests_mock.get(url=url,
                       status_code=HTML_COLLECTOR_MOCK['status_code'],
@@ -71,7 +71,7 @@ def test_extract_html_information_exception(requests_mock) -> None:
                                          collector=collector)
 
     try:
-        response = extractor.extract()  # pylint: disable=unused-variable
+        response = extractor.extract_all_information()  # pylint: disable=unused-variable
     except ExtractException as exception:
         assert isinstance(exception, ExtractException)
 

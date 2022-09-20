@@ -42,7 +42,7 @@ class ExtractorHtmlInformation:
         self.__requester = requester
         self.__collector = collector
 
-    def extract(self) -> ExtractContract:
+    def extract_all_information(self) -> ExtractContract:
         """Extract the information from the HTML.
 
         :return: ExtractContract: Extracted information.
@@ -51,7 +51,7 @@ class ExtractorHtmlInformation:
 
         try:
             html_information = self.__requester.make_request()
-            collect_information = self.__collector.collect_information(
+            collect_information = self.__collector.collect_all_information(
                 html_information.response.text)
 
             return ExtractContract(raw_information=collect_information,
