@@ -316,10 +316,10 @@ class HtmlCollector(HtmlCollectorInterface):
             information[5])
 
         # Dividendo pago por ação dividido pelo preço da ação.
-        dividend_yield__title = self.__processing_data_title(information[6])
-        dividend_yield__tooltip = self.__processing_data_tooltip(
+        dividend_yield_title = self.__processing_data_title(information[6])
+        dividend_yield_tooltip = self.__processing_data_tooltip(
             information[6])
-        dividend_yield__value = self.__processing_data_value(information[6])
+        dividend_yield_value = self.__processing_data_value(information[6])
 
         # Valor da Firma (Enterprise Value dividido pelo EBITDA).
 
@@ -375,9 +375,9 @@ class HtmlCollector(HtmlCollectorInterface):
                 price_divided_by_net_current_assets_tooltip,
                 price_divided_by_net_current_assets_value
             ],
-            'dividend_yield_': [
-                dividend_yield__title, dividend_yield__tooltip,
-                dividend_yield__value
+            'dividend_yield': [
+                dividend_yield_title, dividend_yield_tooltip,
+                dividend_yield_value
             ],
             'enterprise_value_by_ebitda': [
                 enterprise_value_by_ebitda_title,
@@ -636,7 +636,7 @@ class HtmlCollector(HtmlCollectorInterface):
         }
 
     def __extraction_income_statement(self, soup) -> Dict:
-        """Extract the balance_sheet of the stock.
+        """Extract the income statement of the stock.
 
         :param soup (bs): BeautifulSoup object.
         :return (dict): Dictionary with the processed information.
