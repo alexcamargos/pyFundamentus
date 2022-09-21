@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.1
+#  Version: 0.0.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -19,6 +19,7 @@
 """HTTP Requester Interface."""
 
 from abc import ABC, abstractmethod
+from typing import Dict
 
 
 # pylint: disable=too-few-public-methods
@@ -26,7 +27,7 @@ class HttpRequesterInterface(ABC):
     """Represents a complete HTTP request."""
 
     @abstractmethod
-    def make_request(self) -> dict:
+    def make_request(self) -> Dict:
         """Make request to the url and return the response."""
 
         raise NotImplementedError("You should implement this method.")
