@@ -48,9 +48,9 @@ class FundamentusPipeline:
         :return: dict: Stock information.
         """
 
-        extract_contract = self.__extractor.extract()
+        extract_contract = self.__extractor.extract_all_information()
 
-        return self.__transformer.transform_information(extract_contract)
+        return self.__transformer.transform_all_information(extract_contract)
 
     def list_all_companies(self) -> list:
         """Get the list of all companies.

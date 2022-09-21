@@ -27,27 +27,27 @@ def test_get_stock_information() -> None:
     """Test the get_stock_information method."""
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    params = {'papel': 'PETR4'}
+    payload = {'papel': 'MGLU3', 'interface': 'mobile'}
 
-    main_pipeline = FundamentusPipeline(url=url, params=params)
+    main_pipeline = FundamentusPipeline(url=url, params=payload)
     response = main_pipeline.get_stock_information()
 
     assert isinstance(response, TransformContract)
     assert isinstance(response.transformed_information, dict)
-    assert isinstance(response.transformed_information['cotacao'], dict)
-    assert isinstance(response.transformed_information['informacoes_basicas'],
+    assert isinstance(response.transformed_information['price_information'],
                       dict)
-    assert isinstance(response.transformed_information['oscilacoes'], dict)
-    assert isinstance(
-        response.transformed_information['indicadores_de_valuation'], dict)
-    assert isinstance(
-        response.transformed_information['indicadores_de_rentabilidade'], dict)
-    assert isinstance(
-        response.transformed_information['indicadores_de_endividamento'], dict)
-    assert isinstance(response.transformed_information['balanco_patrimonial'],
+    assert isinstance(response.transformed_information['detailed_information'],
+                      dict)
+    assert isinstance(response.transformed_information['oscillations'], dict)
+    assert isinstance(response.transformed_information['valuation_indicators'],
                       dict)
     assert isinstance(
-        response.transformed_information['demonstrativo_de_resultados'], dict)
+        response.transformed_information['profitability_indicators'], dict)
+    assert isinstance(
+        response.transformed_information['indebtedness_indicators'], dict)
+    assert isinstance(response.transformed_information['balance_sheet'], dict)
+    assert isinstance(response.transformed_information['income_statement'],
+                      dict)
 
 
 def test_list_all_companies(requests_mock) -> None:
@@ -80,8 +80,6 @@ def test_list_all_property_funds(requests_mock) -> None:
 
     main_pipeline = FundamentusPipeline(url=url, params=payload)
     response = main_pipeline.list_all_property_funds()
-
-    print(response.transformed_information[0])
 
     assert isinstance(response, TransformContract)
     assert isinstance(response.transformed_information, list)
