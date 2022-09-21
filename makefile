@@ -1,3 +1,4 @@
+SHELL:=/bin/bash
 # ------------------------------------------------------------------------------
 #  Name: makefile
 #  Version: 0.0.1
@@ -23,7 +24,13 @@ build:
 clean:
 	rm -rf build
 	rm -rf dist
-	rm -rf fundamentus.egg-info
+	rm -rf pyfundamentus.egg-info
+
+	rm -rf fundamentus/__pycache__
+	rm -rf fundamentus/.pytest_cache 
+	rm -rf .pytest_cache
+
+	rm -rf htmlcov
 
 
 test:
