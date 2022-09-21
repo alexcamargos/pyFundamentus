@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: textualize.py
-#  Version: 0.0.8
+#  Version: 0.0.9
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -15,18 +15,17 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-
 """Rich's Fundamentus Command line interface."""
 
 from decimal import Decimal
 
+from rich.columns import Columns
 from rich.panel import Panel
 from rich.table import Table
 
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.main.fundamentus_pipeline import \
     FundamentusPipeline as Fundamentus
-from fundamentus.utils.indicator_names import INDICATOR_NAME
 
 
 def list_all_companies() -> Table:
@@ -42,7 +41,7 @@ def list_all_companies() -> Table:
     response = main_pipeline.list_all_companies()
 
     # Table with information of all companies.
-    table = Table(title='Todas as Empresas', show_header=True, expand=True)
+    table = Table(title='Todas as Empresas Disponíveis', show_header=True, expand=True)
     table.add_column('Código', style='cyan', vertical='middle', no_wrap=True)
     table.add_column('Nome', style='cyan', vertical='middle', no_wrap=True)
     table.add_column('Razão Social',
@@ -60,7 +59,7 @@ def list_all_companies() -> Table:
 def list_all_property_funds() -> Table:
     '''List all companies.
 
-    :return: Table with all companies.
+    :return: Table with all property funds.
     '''
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
@@ -70,7 +69,7 @@ def list_all_property_funds() -> Table:
     response = main_pipeline.list_all_property_funds()
 
     # Table with information of all companies.
-    table = Table(title='Todas as Empresas', show_header=True, expand=True)
+    table = Table(title='Todos os Fundos Imobiliários', show_header=True, expand=True)
     table.add_column('Código', style='cyan', vertical='middle', no_wrap=True)
     table.add_column('Nome', style='cyan', vertical='middle', no_wrap=True)
 
@@ -80,7 +79,7 @@ def list_all_property_funds() -> Table:
     return table
 
 
-def get_information(ticker: str) -> TransformContract:
+def get_all_information(ticker: str) -> TransformContract:
     """Main function.
 
     :param ticker (string): Stock ticker.
@@ -88,7 +87,7 @@ def get_information(ticker: str) -> TransformContract:
     """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    params = {'papel': ticker}
+    params = {'papel': ticker, 'interface': 'mobile'}
 
     main_pipeline = Fundamentus(url=url, params=params)
     response = main_pipeline.get_stock_information()
@@ -99,7 +98,7 @@ def get_information(ticker: str) -> TransformContract:
 # pylint: disable=too-many-locals
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
-def list_fundamental_indicators(ticker: str) -> list:
+def list_all_fundamental_indicators(ticker: str) -> list:
     """Get panels with the main fundamental indicators.
 
     :param ticker (string): Stock ticker.
@@ -107,167 +106,212 @@ def list_fundamental_indicators(ticker: str) -> list:
     """
 
     # Get the stock information.
-    information = get_information(ticker)
+    information = get_all_information(ticker)
 
     # Extract the information from the response.
-    cotacao = information.transformed_information['cotacao']
-    informacoes_basicas = information.transformed_information[
-        'informacoes_basicas']
-    oscilacoes = information.transformed_information['oscilacoes']
-    indicadores_de_valuation = information.transformed_information[
-        'indicadores_de_valuation']
-    indicadores_de_rentabilidade = information.transformed_information[
-        'indicadores_de_rentabilidade']
-    indicadores_de_endividamento = information.transformed_information[
-        'indicadores_de_endividamento']
-    balanco_patrimonial = information.transformed_information[
-        'balanco_patrimonial']
-    demonstrativo_de_resultados = information.transformed_information[
-        'demonstrativo_de_resultados']
+    price_information = information.transformed_information[
+        'price_information']
+    detailed_information = information.transformed_information[
+        'detailed_information']
+    oscillations = information.transformed_information['oscillations']
+    valuation_indicators = information.transformed_information[
+        'valuation_indicators']
+    profitability_indicators = information.transformed_information[
+        'profitability_indicators']
+    indebtedness_indicators = information.transformed_information[
+        'indebtedness_indicators']
+    balance_sheet = information.transformed_information['balance_sheet']
+    income_statement = information.transformed_information['income_statement']
 
     # Create the panels with the main fundamental indicators.
 
     # Panel with the main information.
     panel_main_information = []
-    for key, value in cotacao.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{value:,}[/green]'
+    for key in price_information.keys():
 
-        if key in ['cotacao', 'minino_52_semanas', 'maximo_52_semanas']:
-            value = f'R${value}'
+        if isinstance(price_information[key].value,
+                      Decimal) and price_information[key].value.is_signed():
+            value = f'[red]R${price_information[key].value:,}[/red]'
+        elif isinstance(price_information[key].value, Decimal):
+            value = f'[green]R${price_information[key].value:,}[/green]'
+        else:
+            value = price_information[key].value
 
         panel_main_information.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=price_information[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the basic information.
     panel_basic_information = []
-    for key, value in informacoes_basicas.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{value:,}[/green]'
+    for key in detailed_information.keys():
 
-        if key in ['valor_de_mercado', 'valor_da_firma']:
-            value = f'R${value}'
+        if key != 'variation_52_weeks':
+            if isinstance(
+                    detailed_information[key].value,
+                    Decimal) and detailed_information[key].value.is_signed():
+                value = f'[red]{detailed_information[key].value:,}[/red]'
+            elif isinstance(detailed_information[key].value, Decimal):
+                value = f'[green]{detailed_information[key].value:,}[/green]'
+            else:
+                value = detailed_information[key].value
 
-        panel_basic_information.append(
-            Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
-                  title_align='left',
-                  expand=True))
+            panel_basic_information.append(
+                Panel(f'{value}',
+                      title=detailed_information[key].title,
+                      title_align='left',
+                      expand=True))
+        else:
+            for sub_key in detailed_information[key]:
+                if isinstance(
+                        detailed_information[key][sub_key].value, Decimal
+                ) and detailed_information[key][sub_key].value.is_signed():
+                    value = f'[red]{detailed_information[key][sub_key].value:,}[/red]'
+                elif isinstance(detailed_information[key][sub_key].value,
+                                Decimal):
+                    value = f'[green]{detailed_information[key][sub_key].value:,}[/green]'
+                else:
+                    value = detailed_information[key][sub_key].value
+
+                panel_basic_information.append(
+                    Panel(f'{value}',
+                          title=detailed_information[key][sub_key].title,
+                          title_align='left',
+                          expand=True))
 
     # Panel with the oscillations.
     panel_oscillations = []
-    for key, value in oscilacoes.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value * 100:.2f}%[/red]'
+    for key in oscillations.keys():
+        if isinstance(oscillations[key].value,
+                      Decimal) and oscillations[key].value.is_signed():
+            value = f'[red]{oscillations[key].value * 100:.2f}%[/red]'
         elif isinstance(value, Decimal):
-            value = f'[green]{value * 100:.2f}%[/green]'
+            value = f'[green]{oscillations[key].value * 100:.2f}%[/green]'
 
         panel_oscillations.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=oscillations[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the valuation indicators.
     panel_valuation_indicators = []
-    for key, value in indicadores_de_valuation.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{value:,}[/green]'
+    for key in valuation_indicators.keys():
+        if isinstance(valuation_indicators[key].value,
+                      Decimal) and valuation_indicators[key].value.is_signed():
+            value = f'[red]{valuation_indicators[key].value:,}[/red]'
+        elif isinstance(valuation_indicators[key].value, Decimal):
+            value = f'[green]{valuation_indicators[key].value:,}[/green]'
 
         panel_valuation_indicators.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=valuation_indicators[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the profitability indicators.
     panel_profitability_indicators = []
-    for key, value in indicadores_de_rentabilidade.items():
-        if key in [
-                'margem_bruta', 'margem_ebit', 'margem_liquida',
-                'crescimento_receita_liquida_5_anos'
+    for key in profitability_indicators.keys():
+        if key not in [
+                'ebit_divided_by_total_assets',
+                'net_revenue_divided_by_total_assets'
         ]:
-            value = f'{value * 100:.2f}%'
+            value = f'{profitability_indicators[key].value * 100:.2f}%'
+        else:
+            value = f'{profitability_indicators[key].value:.2f}'
 
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{value:,}[/green]'
+        if isinstance(
+                profitability_indicators[key].value,
+                Decimal) and profitability_indicators[key].value.is_signed():
+            value = f'[red]{value}[/red]'
+        elif isinstance(profitability_indicators[key].value, Decimal):
+            value = f'[green]{value}[/green]'
 
         panel_profitability_indicators.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=profitability_indicators[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the debt indicators.
     panel_debt_indicators = []
-    for key, value in indicadores_de_endividamento.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{value:,}[/green]'
+    for key in indebtedness_indicators.keys():
+        if isinstance(
+                indebtedness_indicators[key].value,
+                Decimal) and indebtedness_indicators[key].value.is_signed():
+            value = f'[red]{indebtedness_indicators[key].value:,}[/red]'
+        elif isinstance(indebtedness_indicators[key].value, Decimal):
+            value = f'[green]{indebtedness_indicators[key].value:,}[/green]'
 
         panel_debt_indicators.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=indebtedness_indicators[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the balance sheet.
     panel_balance_sheet = []
-    for key, value in balanco_patrimonial.items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'R$[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'R$[green]{value:,}[/green]'
+    for key in balance_sheet.keys():
+        if isinstance(balance_sheet[key].value,
+                      Decimal) and balance_sheet[key].value.is_signed():
+            value = f'[red]R${balance_sheet[key].value:,}[/red]'
+        elif isinstance(balance_sheet[key].value, Decimal):
+            value = f'[green]R${balance_sheet[key].value:,}[/green]'
 
         panel_balance_sheet.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=balance_sheet[key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the income statement 03 months.
     panel_income_statement_03_months = []
-    for key, value in demonstrativo_de_resultados['3_meses'].items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'R$[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'R$[green]{value:,}[/green]'
+    for key in income_statement['three_months'].keys():
+        if isinstance(
+                income_statement['three_months'][key].value, Decimal
+        ) and income_statement['three_months'][key].value.is_signed():
+            value = f"[red]R${income_statement['three_months'][key].value:,}[/red]"
+        elif isinstance(income_statement['three_months'][key].value, Decimal):
+            value = f"[green]R${income_statement['three_months'][key].value:,}[/green]"
 
         panel_income_statement_03_months.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=income_statement['three_months'][key].title,
                   title_align='left',
                   expand=True))
 
     # Panel with the income statement 12 months.
     panel_income_statement_12_months = []
-    for key, value in demonstrativo_de_resultados['12_meses'].items():
-        if isinstance(value, Decimal) and value.is_signed():
-            value = f'R$[red]{value:,}[/red]'
-        elif isinstance(value, Decimal):
-            value = f'R$[green]{value:,}[/green]'
+    for key in income_statement['twelve_months'].keys():
+        if isinstance(
+                income_statement['twelve_months'][key].value, Decimal
+        ) and income_statement['twelve_months'][key].value.is_signed():
+            value = f"[red]R${income_statement['twelve_months'][key].value:,}[/red]"
+        elif isinstance(income_statement['twelve_months'][key].value, Decimal):
+            value = f"[green]R${income_statement['twelve_months'][key].value:,}[/green]"
 
         panel_income_statement_12_months.append(
             Panel(f'{value}',
-                  title=INDICATOR_NAME[key],
+                  title=income_statement['twelve_months'][key].title,
                   title_align='left',
                   expand=True))
+
+    # Join Panel panel_income_statement_03_months and panel_income_statement_12_months.
+    panel_income_statement = []
+    panel_income_statement.append(
+        Panel(renderable=Columns(panel_income_statement_03_months),
+              title='Últimos 03 meses',
+              title_align='left',
+              expand=True))
+    panel_income_statement.append(
+        Panel(renderable=Columns(panel_income_statement_12_months),
+              title='Últimos 12 meses',
+              title_align='left',
+              expand=True))
 
     return [
         panel_main_information, panel_basic_information, panel_oscillations,
         panel_valuation_indicators, panel_profitability_indicators,
-        panel_debt_indicators, panel_balance_sheet,
-        panel_income_statement_03_months, panel_income_statement_12_months
+        panel_debt_indicators, panel_balance_sheet, panel_income_statement
     ]
