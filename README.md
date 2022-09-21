@@ -12,15 +12,15 @@
 
 ## API usage
 
-`python run_cmd.py VALE3`
+`python run_rich.py VALE3`
 
 ## Examples
 
-`python run_cmd.py mglu3`
+`python run_rich.py mglu3`
 
 ![](screenshot/mglu3.png)
 
-`python run_cmd.py wege3`
+`python run_rich.py wege3`
 
 ![](screenshot/wege3.png)
 
