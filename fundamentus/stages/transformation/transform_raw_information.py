@@ -189,9 +189,9 @@ class TransformRawInformation:
         highest_value = InformationItem(
             title='Máximo',
             tooltip=self.__string_processing(
-                detailed_information['variation_52_weeks']['lowest_value'][0]),
+                detailed_information['variation_52_weeks']['highest_value'][0]),
             value=self.__number_processing(
-                detailed_information['variation_52_weeks']['lowest_value'][1]))
+                detailed_information['variation_52_weeks']['highest_value'][1]))
 
         return {
             'stock_type': stock_type,
