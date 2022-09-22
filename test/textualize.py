@@ -188,6 +188,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f'[red]{oscillations[key].value * 100:.2f}%[/red]'
         elif isinstance(value, Decimal):
             value = f'[green]{oscillations[key].value * 100:.2f}%[/green]'
+        else:
+            value = oscillations[key].value
 
         panel_oscillations.append(
             Panel(f'{value}',
