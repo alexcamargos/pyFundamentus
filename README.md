@@ -1,6 +1,7 @@
 # Python Fundamentus
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![codecov](https://codecov.io/github/alexcamargos/pyFundamentus/branch/main/graph/badge.svg?token=44RJNBZZFQ)](https://codecov.io/github/alexcamargos/pyFundamentus)
 
 `Python Fundamentus` is a Python API that allows you to quickly access the main fundamental indicators of the main stocks in the Brazilian market.
 
