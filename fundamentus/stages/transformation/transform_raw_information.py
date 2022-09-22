@@ -18,7 +18,7 @@
 """Transform raw information from the HTTP requester."""
 
 from decimal import Decimal
-from typing import Dict
+from typing import Dict, List
 
 from fundamentus.contracts.extract_contract import ExtractContract
 from fundamentus.contracts.information_contract import InformationItem
@@ -730,7 +730,7 @@ class TransformRawInformation:
             'income_statement': income_statement
         }
 
-    def __make_transformation_companies(self, raw_information: str) -> Dict:
+    def __make_transformation_companies(self, raw_information: str) -> List[Dict[str, str]]:
         """Make the transformation.
 
         :param raw_information: raw information to be processed.
@@ -758,7 +758,7 @@ class TransformRawInformation:
         return transformed
 
     def __make_transformation_property_funds(self,
-                                             raw_information: str) -> Dict:
+                                             raw_information: str) -> List[Dict[str, str]]:
         """Make the transformation.
 
         :param raw_information: raw information to be processed.

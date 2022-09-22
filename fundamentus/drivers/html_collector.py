@@ -90,7 +90,7 @@ class HtmlCollector(HtmlCollectorInterface):
             'date': [date_title, date_tooltip, date_value]
         }
 
-    def __processing_stock_type(self, soup: bs) -> str:
+    def __processing_stock_type(self, soup: bs) -> List[str]:
         """Process stock type information.
 
         :param soup (bs): BeautifulSoup object.
@@ -103,7 +103,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return [title, tooltip, value]
 
-    def __processing_traded_volume_per_day(self, soup: bs) -> str:
+    def __processing_traded_volume_per_day(self, soup: bs) -> List[str]:
         """Process traded volume per day information.
 
         :param soup (bs): BeautifulSoup object.
@@ -116,7 +116,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return [title, tooltip, value]
 
-    def __processing_equity_value_per_share(self, soup: bs) -> str:
+    def __processing_equity_value_per_share(self, soup: bs) -> List[str]:
         """Process Equity Value per Share information.
 
         :param soup (bs): BeautifulSoup object.
@@ -129,7 +129,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return [title, tooltip, value]
 
-    def __processing_earnings_per_share(self, soup: bs) -> str:
+    def __processing_earnings_per_share(self, soup: bs) -> List[str]:
         """Process Earnings per Share information.
 
         :param soup (bs): BeautifulSoup object.
@@ -142,7 +142,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return [title, tooltip, value]
 
-    def __processing_variation_52_weeks(self, soup: bs) -> str:
+    def __processing_variation_52_weeks(self, soup: bs) -> Dict[str, List[str]]:
         """Process variation 52 weeks information.
 
         :param soup (bs): BeautifulSoup object.

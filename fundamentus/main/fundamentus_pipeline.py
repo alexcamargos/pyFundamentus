@@ -18,7 +18,7 @@
 """Python Fundamentus is a Python API that allows you to quickly access the main
 fundamental indicators of the main stocks in the Brazilian market.
 """
-
+from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.drivers.html_collector import HtmlCollector
 from fundamentus.drivers.http_requester import HttpRequester
 from fundamentus.stages.extraction.extractor_html_information import \
@@ -42,7 +42,7 @@ class FundamentusPipeline:
                                      collector=HtmlCollector())
         self.__transformer = Transformer()
 
-    def get_stock_information(self) -> dict:
+    def get_stock_information(self) -> TransformContract:
         """Get the stock information.
 
         :return: dict: Stock information.
@@ -52,7 +52,7 @@ class FundamentusPipeline:
 
         return self.__transformer.transform_all_information(extract_contract)
 
-    def list_all_companies(self) -> list:
+    def list_all_companies(self) -> TransformContract:
         """Get the list of all companies.
 
         :return: list: List of all companies.
@@ -62,7 +62,7 @@ class FundamentusPipeline:
 
         return self.__transformer.transform_companies(extract_contract)
 
-    def list_all_property_funds(self) -> list:
+    def list_all_property_funds(self) -> TransformContract:
         """Get the list of all companies.
 
         :return: list: List of all companies.
