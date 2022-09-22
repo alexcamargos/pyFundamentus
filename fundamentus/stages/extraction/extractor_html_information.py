@@ -29,7 +29,7 @@ from fundamentus.exceptions.extract_exception import ExtractException
 
 # pylint: disable=too-few-public-methods
 class ExtractorHtmlInformation:
-    """Represents a HTML information extractor."""
+    """Represents an HTML information extractor."""
 
     def __init__(self, requester: HttpRequesterInterface,
                  collector: HtmlCollectorInterface) -> None:

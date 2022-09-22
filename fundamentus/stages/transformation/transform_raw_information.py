@@ -168,7 +168,7 @@ class TransformRawInformation:
                 detailed_information['equity_value_per_share'][0]),
             tooltip=self.__string_processing(
                 detailed_information['equity_value_per_share'][1]),
-            value=self.__string_processing(
+            value=self.__number_processing(
                 detailed_information['equity_value_per_share'][2]))
 
         earnings_per_share = InformationItem(
@@ -217,77 +217,77 @@ class TransformRawInformation:
         variation_day = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_day'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_day'][1]))
 
         variation_month = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_month'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_month'][1]))
 
         variation_30_days = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_30_days'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_30_days'][1]))
 
         variation_12_months = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_12_months'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_12_months'][1]))
 
         variation_2022 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2022'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2022'][1]))
 
         variation_2022 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2022'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2022'][1]))
 
         variation_2021 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2021'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2021'][1]))
 
         variation_2020 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2020'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2020'][1]))
 
         variation_2019 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2019'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2019'][1]))
 
         variation_2018 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2018'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2018'][1]))
 
         variation_2017 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2017'][0]),
-            tooltip=None,
+            tooltip='',
             value=self.__number_processing(
                 oscillations_information['variation_2017'][1]))
 
@@ -686,7 +686,7 @@ class TransformRawInformation:
         :return: Dict: Transformed information.
         """
 
-        # Processando as informação do preço da ação.
+        # Processando informações do preço da ação.
         price_information = self.__transformation_of_price_information(
             raw_information['price'])
 
@@ -702,20 +702,19 @@ class TransformRawInformation:
         valuation_indicators = self.__transformation_of_valuation_indicators(
             raw_information['valuation_indicators'])
 
-        # Processando informações dos indicadores de indicadores de rentabilidade da ação.
+        # Processando informações dos indicadores de rentabilidade da ação.
         profitability_indicators = self.__transformation_of_profitability_indicators(
             raw_information['profitability_indicators'])
 
-        # Processando informações dos indicadores de indicadores de endividamento da ação.
+        # Processando informações dos indicadores de endividamento da ação.
         indebtedness_indicators = self.__transformation_of_indebtedness_indicators(
             raw_information['indebtedness_indicators'])
 
-        # Processando informações dos indicadores de indicadores de balanço patrimonial da ação.
+        # Processando informações dos indicadores de balanço patrimonial da ação.
         balance_sheet = self.__transformation_of_balance_sheet(
             raw_information['balance_sheet'])
 
-        # Processando informações dos indicadores de indicadores de
-        # demostrativo de resultados da ação.
+        # Processando informações dos demostrativos de resultados da ação.
         income_statement = self.__transformation_of_income_statement(
             raw_information['income_statement'])
 
