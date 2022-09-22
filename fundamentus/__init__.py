@@ -23,3 +23,8 @@ Python Fundamentus is a Python API that allows you to quickly access the main fu
 indicators of the main stocks in the Brazilian market.
 
 """
+
+from fundamentus.main.fundamentus_pipeline import FundamentusPipeline as Pipeline
+
+
+__all__ = ['Pipeline']
