@@ -36,7 +36,7 @@ if __name__ == '__main__':
     PAYLOAD = {'papel': 'VALE3', 'interface': 'mobile'}
 
     main_pipeline = fundamentus.Pipeline(url=URL, params=PAYLOAD)
-    response = main_pipeline.get_stock_information()
+    response = main_pipeline.get_all_information()
 
     # Extract the information from the response.
     price_information = response.transformed_information['price_information']

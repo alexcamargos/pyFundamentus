@@ -15,6 +15,7 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
+
 """Python Fundamentus is a Python API that allows you to quickly access the main
 fundamental indicators of the main stocks in the Brazilian market.
 """
@@ -27,7 +28,6 @@ from fundamentus.stages.transformation.transform_raw_information import \
     TransformRawInformation as Transformer
 
 
-# pylint: disable=too-few-public-methods
 class FundamentusPipeline:
 
     def __init__(self, url: str, params: dict) -> None:
@@ -42,7 +42,7 @@ class FundamentusPipeline:
                                      collector=HtmlCollector())
         self.__transformer = Transformer()
 
-    def get_stock_information(self) -> TransformContract:
+    def get_all_information(self) -> TransformContract:
         """Get the stock information.
 
         :return: dict: Stock information.

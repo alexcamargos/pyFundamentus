@@ -90,7 +90,7 @@ def get_all_information(ticker: str) -> TransformContract:
     params = {'papel': ticker, 'interface': 'mobile'}
 
     main_pipeline = Fundamentus(url=url, params=params)
-    response = main_pipeline.get_stock_information()
+    response = main_pipeline.get_all_information()
 
     return response
 

@@ -23,14 +23,14 @@ from fundamentus.drivers.mocks.companies_list import COMPANIES_LIST_MOCK
 from .fundamentus_pipeline import FundamentusPipeline
 
 
-def test_get_stock_information() -> None:
-    """Test the get_stock_information method."""
+def test_get_all_information() -> None:
+    """Test the get_all_information method."""
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
     payload = {'papel': 'MGLU3', 'interface': 'mobile'}
 
     main_pipeline = FundamentusPipeline(url=url, params=payload)
-    response = main_pipeline.get_stock_information()
+    response = main_pipeline.get_all_information()
 
     assert isinstance(response, TransformContract)
     assert isinstance(response.transformed_information, dict)
