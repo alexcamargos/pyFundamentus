@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.4
+#  Version: 0.0.5
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -17,14 +17,11 @@
 # ------------------------------------------------------------------------------
 """HTTP Requester - This module is responsible for making HTTP requests."""
 
-from collections import namedtuple
-from typing import Type
-
 import requests
 import requests_cache
 
+from fundamentus.contracts.request_contract import RequestContract
 from fundamentus.utils.random_user_agent import get_random_user_agent
-
 from .interfaces.http_requester import HttpRequesterInterface
 
 
@@ -42,14 +39,10 @@ class HttpRequester(HttpRequesterInterface):
         self.__url = url
         self.__params = params
         self.__headers = {"User-Agent": get_random_user_agent()}
-        self.__fundamentus_request = namedtuple('Fundamentus',
-                                                ['status_code',
-                                                 'request',
-                                                 'response'])
+        self.__fundamentus_request = RequestContract
 
-    def __send_http_request(self,
-                            prepared_request: Type[requests.PreparedRequest]
-                            ) -> requests.Response:
+    @staticmethod
+    def __send_http_request(prepared_request: requests.PreparedRequest) -> requests.Response:
         """Send the HTTP request.
 
         :param prepared_request: requests.PreparedRequest: Prepared request.
@@ -69,7 +62,7 @@ class HttpRequester(HttpRequesterInterface):
 
             return response
 
-    def make_request(self) -> dict:
+    def make_request(self) -> RequestContract:
         """Make request to the url and return the response.
 
         :return: dict: Response of the request.
