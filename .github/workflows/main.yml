@@ -1,4 +1,4 @@
-name: Coverage.py
+name: Workflow for pytest and Coverage.py
 on: [push, pull_request]
 
 env:
@@ -10,6 +10,7 @@ jobs:
     env:
       OS: ubuntu-latest
       PYTHON: '3.10.7'
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -19,7 +20,7 @@ jobs:
       with:
         python-version: 3.10.7
 
-    - name: Install dependencies
+    - name: Install Developing Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
@@ -28,4 +29,14 @@ jobs:
       run: |
         pip install coverage
         pip install pytest-cov
-        coverage run --source=fundamentus -m pytest -vv --color=yes && coverage report -m
+        coverage run --source=fundamentus -m pytest -vv --color=yes
+        coverage report -m
+        coverage xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3.1.1
+      with:
+        files: ./coverage.xml
+        name: codecov-version
+        version: v0.1.0_8880
+        verbose: true
