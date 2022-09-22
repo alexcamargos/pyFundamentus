@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.0.
+#  Version: 0.0.10
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -214,46 +214,55 @@ class HtmlCollector(HtmlCollectorInterface):
 
         # Extract the variation of the day.
         variation_day_value = self.__processing_data_value(information[0])
+        variation_day_title = information[0].find('span', {'class': 'data-text'}).text
 
         # Extract the variation of the month.
         variation_month_value = self.__processing_data_value(information[1])
+        variation_month_title = information[1].find('span', {'class': 'data-text'}).text
 
         # Extract the variation of the 30 days.
         variation_30_days_value = self.__processing_data_value(information[2])
+        variation_30_days_title = information[2].find('span', {'class': 'data-text'}).text
 
         # Extract the variation of the 12 months.
-        variation_12_months_value = self.__processing_data_value(
-            information[3])
+        variation_12_months_value = self.__processing_data_value(information[3])
+        variation_12_months_title = information[3].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2022.
         variation_2022_value = self.__processing_data_value(information[4])
+        variation_2022_title = information[4].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2021.
         variation_2021_value = self.__processing_data_value(information[5])
+        variation_2021_title = information[5].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2020.
         variation_2020_value = self.__processing_data_value(information[6])
+        variation_2020_title = information[6].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2019.
         variation_2019_value = self.__processing_data_value(information[7])
+        variation_2019_title = information[7].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2018.
         variation_2018_value = self.__processing_data_value(information[8])
+        variation_2018_title = information[8].find('span', {'class': 'data-text'}).text
 
         # Extract the variation on 2017.
         variation_2017_value = self.__processing_data_value(information[9])
+        variation_2017_title = information[9].find('span', {'class': 'data-text'}).text
 
         return {
-            'variation_day': variation_day_value,
-            'variation_month': variation_month_value,
-            'variation_30_days': variation_30_days_value,
-            'variation_12_months': variation_12_months_value,
-            'variation_2022': variation_2022_value,
-            'variation_2021': variation_2021_value,
-            'variation_2020': variation_2020_value,
-            'variation_2019': variation_2019_value,
-            'variation_2018': variation_2018_value,
-            'variation_2017': variation_2017_value
+            'variation_day': [variation_day_title, variation_day_value],
+            'variation_month': [variation_month_title, variation_month_value],
+            'variation_30_days': [variation_30_days_title, variation_30_days_value],
+            'variation_12_months': [variation_12_months_title, variation_12_months_value],
+            'variation_2022': [variation_2022_title, variation_2022_value],
+            'variation_2021': [variation_2021_title, variation_2021_value],
+            'variation_2020': [variation_2020_title, variation_2020_value],
+            'variation_2019': [variation_2019_title, variation_2019_value],
+            'variation_2018': [variation_2018_title, variation_2018_value],
+            'variation_2017': [variation_2017_title, variation_2017_value]
         }
 
     def __extraction_valuation_indicators(self, soup: bs) -> Dict:

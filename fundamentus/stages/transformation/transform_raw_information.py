@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: transform_raw_information.py
-#  Version: 0.0.9
+#  Version: 0.0.10
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -189,9 +189,11 @@ class TransformRawInformation:
         highest_value = InformationItem(
             title='Máximo',
             tooltip=self.__string_processing(
-                detailed_information['variation_52_weeks']['highest_value'][0]),
+                detailed_information['variation_52_weeks']['highest_value']
+                [0]),
             value=self.__number_processing(
-                detailed_information['variation_52_weeks']['highest_value'][1]))
+                detailed_information['variation_52_weeks']['highest_value']
+                [1]))
 
         return {
             'stock_type': stock_type,
@@ -213,70 +215,81 @@ class TransformRawInformation:
         """
 
         variation_day = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_day'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_day']))
+                oscillations_information['variation_day'][1]))
 
         variation_month = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_month'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_month']))
+                oscillations_information['variation_month'][1]))
 
         variation_30_days = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_30_days'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_30_days']))
+                oscillations_information['variation_30_days'][1]))
 
         variation_12_months = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_12_months'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_12_months']))
+                oscillations_information['variation_12_months'][1]))
 
         variation_2022 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2022'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2022']))
+                oscillations_information['variation_2022'][1]))
 
         variation_2022 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2022'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2022']))
+                oscillations_information['variation_2022'][1]))
 
         variation_2021 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2021'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2021']))
+                oscillations_information['variation_2021'][1]))
 
         variation_2020 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2020'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2020']))
+                oscillations_information['variation_2020'][1]))
 
         variation_2019 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2019'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2019']))
+                oscillations_information['variation_2019'][1]))
 
         variation_2018 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2018'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2018']))
+                oscillations_information['variation_2018'][1]))
 
         variation_2017 = InformationItem(
-            title=None,
+            title=self.__string_processing(
+                oscillations_information['variation_2017'][0]),
             tooltip=None,
             value=self.__number_processing(
-                oscillations_information['variation_2017']))
+                oscillations_information['variation_2017'][1]))
 
         return {
             'variation_day': variation_day,
