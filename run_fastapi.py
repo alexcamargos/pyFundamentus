@@ -1,12 +1,33 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+# ------------------------------------------------------------------------------
+#  Name: run_fastapi.py
+#  Version: 0.0.7
+#
+#  Summary: Python Fundamentus
+#           Python Fundamentus is a Python API that allows you to quickly
+#           access the main fundamental indicators of the main stocks
+#           in the Brazilian market.
+#
+#  Author: Alexsander Lopes Camargos
+#  Author-email: alcamargos@vivaldi.net
+#
+#  License: MIT
+# ------------------------------------------------------------------------------
+
+"""Fundamentus Command line interface."""
+
 from fastapi import FastAPI
 
+from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.main.fundamentus_pipeline import \
     FundamentusPipeline as Fundamentus
 
 app = FastAPI()
 
 
-def get_stock_data(symbol: str) -> dict:
+def get_stock_data(symbol: str) -> TransformContract:
     """Get the stock data.
 
     :param symbol: str: Stock symbol.

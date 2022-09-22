@@ -29,10 +29,10 @@ from fundamentus.main.fundamentus_pipeline import \
 
 
 def list_all_companies() -> Table:
-    '''List all companies.
+    """List all companies.
 
     :return: Table with all companies.
-    '''
+    """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
     payload = {'interface': 'mobile'}
@@ -57,10 +57,10 @@ def list_all_companies() -> Table:
 
 
 def list_all_property_funds() -> Table:
-    '''List all companies.
+    """List all companies.
 
     :return: Table with all property funds.
-    '''
+    """
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
     payload = {'interface': 'mobile'}
@@ -186,10 +186,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
         if isinstance(oscillations[key].value,
                       Decimal) and oscillations[key].value.is_signed():
             value = f'[red]{oscillations[key].value * 100:.2f}%[/red]'
-        elif isinstance(value, Decimal):
-            value = f'[green]{oscillations[key].value * 100:.2f}%[/green]'
         else:
-            value = oscillations[key].value
+            value = f'[green]{oscillations[key].value * 100:.2f}%[/green]'
 
         panel_oscillations.append(
             Panel(f'{value}',
@@ -205,6 +203,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f'[red]{valuation_indicators[key].value:,}[/red]'
         elif isinstance(valuation_indicators[key].value, Decimal):
             value = f'[green]{valuation_indicators[key].value:,}[/green]'
+        else:
+            value = valuation_indicators[key].value
 
         panel_valuation_indicators.append(
             Panel(f'{value}',
@@ -245,6 +245,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f'[red]{indebtedness_indicators[key].value:,}[/red]'
         elif isinstance(indebtedness_indicators[key].value, Decimal):
             value = f'[green]{indebtedness_indicators[key].value:,}[/green]'
+        else:
+            value = indebtedness_indicators[key].value
 
         panel_debt_indicators.append(
             Panel(f'{value}',
@@ -260,6 +262,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f'[red]R${balance_sheet[key].value:,}[/red]'
         elif isinstance(balance_sheet[key].value, Decimal):
             value = f'[green]R${balance_sheet[key].value:,}[/green]'
+        else:
+            value = balance_sheet[key].value
 
         panel_balance_sheet.append(
             Panel(f'{value}',
@@ -276,6 +280,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f"[red]R${income_statement['three_months'][key].value:,}[/red]"
         elif isinstance(income_statement['three_months'][key].value, Decimal):
             value = f"[green]R${income_statement['three_months'][key].value:,}[/green]"
+        else:
+            value = income_statement['three_months'][key].value
 
         panel_income_statement_03_months.append(
             Panel(f'{value}',
@@ -292,6 +298,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
             value = f"[red]R${income_statement['twelve_months'][key].value:,}[/red]"
         elif isinstance(income_statement['twelve_months'][key].value, Decimal):
             value = f"[green]R${income_statement['twelve_months'][key].value:,}[/green]"
+        else:
+            value = income_statement['twelve_months'][key].value
 
         panel_income_statement_12_months.append(
             Panel(f'{value}',
@@ -300,17 +308,16 @@ def list_all_fundamental_indicators(ticker: str) -> list:
                   expand=True))
 
     # Join Panel panel_income_statement_03_months and panel_income_statement_12_months.
-    panel_income_statement = []
-    panel_income_statement.append(
+    panel_income_statement = [
         Panel(renderable=Columns(panel_income_statement_03_months),
               title='Últimos 03 meses',
               title_align='left',
-              expand=True))
-    panel_income_statement.append(
+              expand=True),
         Panel(renderable=Columns(panel_income_statement_12_months),
               title='Últimos 12 meses',
               title_align='left',
-              expand=True))
+              expand=True)
+    ]
 
     return [
         panel_main_information, panel_basic_information, panel_oscillations,
