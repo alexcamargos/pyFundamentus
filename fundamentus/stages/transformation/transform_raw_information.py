@@ -167,9 +167,9 @@ class TransformRawInformation:
             title=self.__string_processing(
                 detailed_information['equity_value_per_share'][0]),
             tooltip=self.__string_processing(
-                detailed_information['equity_value_per_share'][0]),
+                detailed_information['equity_value_per_share'][1]),
             value=self.__string_processing(
-                detailed_information['equity_value_per_share'][1]))
+                detailed_information['equity_value_per_share'][2]))
 
         earnings_per_share = InformationItem(
             title=self.__string_processing(
