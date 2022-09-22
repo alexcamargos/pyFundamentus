@@ -249,13 +249,6 @@ class TransformRawInformation:
             value=self.__number_processing(
                 oscillations_information['variation_2022'][1]))
 
-        variation_2022 = InformationItem(
-            title=self.__string_processing(
-                oscillations_information['variation_2022'][0]),
-            tooltip='',
-            value=self.__number_processing(
-                oscillations_information['variation_2022'][1]))
-
         variation_2021 = InformationItem(
             title=self.__string_processing(
                 oscillations_information['variation_2021'][0]),
