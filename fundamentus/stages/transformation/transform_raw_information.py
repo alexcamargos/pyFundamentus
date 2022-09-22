@@ -28,10 +28,12 @@ from fundamentus.exceptions.transform_exception import TransformException
 
 # pylint: disable=too-few-public-methods
 # pylint: disable=too-many-statements
+# pylint: disable=duplicate-code
 class TransformRawInformation:
     """Represents a raw information transformer."""
 
-    def __remove_new_lines(self, string: str) -> str:
+    @staticmethod
+    def __remove_new_lines(string: str) -> str:
         """Remove all newline from the string.
 
         :param string: string to be processed.
@@ -40,7 +42,8 @@ class TransformRawInformation:
 
         return string.replace('\n', '')
 
-    def __remove_all_spaces(self, string: str) -> str:
+    @staticmethod
+    def __remove_all_spaces(string: str) -> str:
         """Remove all spaces from the string.
 
         :param string: string to be processed.
@@ -66,7 +69,8 @@ class TransformRawInformation:
 
         return string.strip()
 
-    def __remove_dot(self, string: str) -> str:
+    @staticmethod
+    def __remove_dot(string: str) -> str:
         """Remove the dot from the string.
 
         :param string: string to be processed.
@@ -75,7 +79,8 @@ class TransformRawInformation:
 
         return string.replace('.', '')
 
-    def __change_comma_to_dot(self, string: str) -> str:
+    @staticmethod
+    def __change_comma_to_dot(string: str) -> str:
         """Change the comma to dot in the string.
 
         :param string: string to be processed.
@@ -84,7 +89,8 @@ class TransformRawInformation:
 
         return string.replace(',', '.')
 
-    def __to_decimal(self, value: str) -> Decimal:
+    @staticmethod
+    def __to_decimal(value: str) -> Decimal:
         """Construct a new Decimal object based from value.
 
         :param value: value to be processed.
@@ -98,7 +104,8 @@ class TransformRawInformation:
 
         return Decimal(value) if value is not None else None
 
-    def __remove_currency_symbol(self, number: str) -> str:
+    @staticmethod
+    def __remove_currency_symbol(number: str) -> str:
         """Remove the currency symbol from the number.
 
         :param number: number to be processed.

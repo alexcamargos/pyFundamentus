@@ -24,7 +24,7 @@ from decimal import Decimal
 
 @dataclass
 class InformationItem:
-    '''Class for keeping track of collected information.'''
+    """Class for keeping track of collected information."""
 
     title: str
     tooltip: str

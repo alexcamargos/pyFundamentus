@@ -32,7 +32,8 @@ from .interfaces.html_collector import HtmlCollectorInterface
 class HtmlCollector(HtmlCollectorInterface):
     """Represents a HTML collector."""
 
-    def __processing_data_title(self, soup: bs) -> str:
+    @staticmethod
+    def __processing_data_title(soup: bs) -> str:
         """Process data title information.
 
         :param soup (bs): BeautifulSoup object.
@@ -41,7 +42,8 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return soup.find('span', {'class': 'data-title'}).text
 
-    def __processing_data_tooltip(self, soup: bs) -> str:
+    @staticmethod
+    def __processing_data_tooltip(soup: bs) -> str:
         """Process data tooltip information.
 
         :param soup (bs): BeautifulSoup object.
@@ -56,7 +58,8 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return tooltip
 
-    def __processing_data_value(self, soup: bs) -> str:
+    @staticmethod
+    def __processing_data_value(soup: bs) -> str:
         """Process data value information.
 
         :param soup (bs): BeautifulSoup object.
@@ -644,7 +647,8 @@ class HtmlCollector(HtmlCollectorInterface):
             'equity': [equity_title, equity_tooltip, equity_value]
         }
 
-    def __extraction_income_statement(self, soup) -> Dict:
+    @staticmethod
+    def __extraction_income_statement(soup) -> Dict:
         """Extract the income statement of the stock.
 
         :param soup (bs): BeautifulSoup object.
