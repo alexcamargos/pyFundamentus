@@ -1,13 +1,13 @@
-[project]
+[tool.poetry]
 name = "pyfundamentus"
-version = "0.0.7"
-authors = [
-  { name="Alexsander Lopes Camargos", email="alcamargos@vivaldi.net" },
-]
+version = "0.0.7a"
 description = "Python Fundamentus is a Python API that allows you to quickly access the main fundamental indicators of the main stocks in the Brazilian market."
+authors = ["Alexsander Lopes Camargos <alexcamargos@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-license = { file="LICENSE" }
-requires-python = ">=3.7"
+homepage = "https://github.com/alexcamargos/pyFundamentus"
+repository = "https://github.com/alexcamargos/pyFundamentus"
+keywords = ["stock market", "scraping", "financial information", "fundamentalist information"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -15,9 +15,17 @@ classifiers = [
     "Development Status :: 3 - Alpha"
 ]
 
-[project.urls]
-"Homepage" = "https://github.com/alexcamargos/pyFundamentus"
-"Bug Tracker" = "https://github.com/alexcamargos/pyFundamentus/issues"
 
-[tool.setuptools]
-packages = ["fundamentus"]
+packages = [{ include = "fundamentus" }]
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+beautifulsoup4 = "^4.11.1"
+requests = "2.28.1"
+requests-cache = "^0.9.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
