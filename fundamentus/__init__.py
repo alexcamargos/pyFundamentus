@@ -17,10 +17,10 @@
 # ------------------------------------------------------------------------------
 
 """
-Python Fundamentus
+Python Fundamentus API
 
-Python Fundamentus is a Python API that allows you to quickly access the main fundamental
-indicators of the main stocks in the Brazilian market.
+Instant access to key financial indicators of Brazilian stocks,
+empowering investors with comprehensive market analysis.
 
 """
 
