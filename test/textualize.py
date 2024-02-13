@@ -24,8 +24,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 from fundamentus.contracts.transform_contract import TransformContract
-from fundamentus.main.fundamentus_pipeline import \
-    FundamentusPipeline as Fundamentus
+from fundamentus import Pipeline as Fundamentus
 
 
 def list_all_companies() -> Table:
@@ -34,10 +33,7 @@ def list_all_companies() -> Table:
     :return: Table with all companies.
     """
 
-    url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'interface': 'mobile'}
-
-    main_pipeline = Fundamentus(url=url, params=payload)
+    main_pipeline = Fundamentus()
     response = main_pipeline.list_all_companies()
 
     # Table with information of all companies.
@@ -62,10 +58,7 @@ def list_all_property_funds() -> Table:
     :return: Table with all property funds.
     """
 
-    url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'interface': 'mobile'}
-
-    main_pipeline = Fundamentus(url=url, params=payload)
+    main_pipeline = Fundamentus()
     response = main_pipeline.list_all_property_funds()
 
     # Table with information of all companies.
@@ -86,10 +79,7 @@ def get_all_information(ticker: str) -> TransformContract:
     :return: Dictionary with the main fundamental indicators.
     """
 
-    url = 'https://www.fundamentus.com.br/detalhes.php'
-    params = {'papel': ticker, 'interface': 'mobile'}
-
-    main_pipeline = Fundamentus(url=url, params=params)
+    main_pipeline = Fundamentus(ticker)
     response = main_pipeline.get_all_information()
 
     return response
