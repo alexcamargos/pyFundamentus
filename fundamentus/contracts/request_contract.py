@@ -15,9 +15,18 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-"""Request Contract."""
+
+"""Request Contract Module.
+
+Defines a contract for HTTP requests within the Python Fundamentus API, encapsulating
+the outcome of an HTTP request including its status, request details, and response content.
+
+This structured approach facilitates the handling and analysis of HTTP request operations
+across the API.
+"""
 
 from collections import namedtuple
 
+# A contract for HTTP request results.
 RequestContract = namedtuple('RequestContract',
                              ['status_code', 'request', 'response'])

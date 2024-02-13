@@ -16,7 +16,12 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
-"""Information Contract"""
+"""Information Contract Module.
+
+Provides a data structure for storing and managing collected financial information
+within the Python Fundamentus API, using a dataclass for enhanced readability and
+efficiency.
+"""
 
 from dataclasses import dataclass
 from decimal import Decimal
@@ -24,7 +29,14 @@ from decimal import Decimal
 
 @dataclass
 class InformationItem:
-    """Class for keeping track of collected information."""
+    """Represents a single item of collected financial information.
+
+    Attributes:
+        title (str): The name or title of the information.
+        tooltip (str): A brief description or tooltip associated with the information.
+        value (Decimal): The numeric value of the information, stored as
+                         a Decimal for precision.
+    """
 
     title: str
     tooltip: str
