@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: fundamentus_pipeline.py
-#  Version: 0.0.4
+#  Version: 0.0.5
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -33,6 +33,8 @@ from fundamentus.stages.extraction.extractor_html_information import \
 from fundamentus.stages.transformation.transform_raw_information import \
     TransformRawInformation as Transformer
 
+from fundamentus.utilities.config import URL, INTERFACE
+
 
 class FundamentusPipeline:
     """
@@ -45,8 +47,9 @@ class FundamentusPipeline:
     and real estate investment funds.
 
     Attributes:
-        url (str): The base URL for making HTTP requests.
-        params (dict): Parameters for the HTTP requests.
+        ticker (str): The ticker symbol of the company.
+        url (str): The base URL for the HTTP requests.
+        interface (str): The interface for the HTTP requests.
 
     Methods:
         get_all_information: Returns detailed financial information of companies.
@@ -55,24 +58,25 @@ class FundamentusPipeline:
                                     with available data.
     """
 
-    def __init__(self, url: str, params: dict) -> None:
+    def __init__(self, ticker: str = None, url: str = URL, interface: str = INTERFACE) -> None:
         """Initializes the FundamentusPipeline object.
 
         Args:
+            ticker (str): The ticker symbol of the company.
             url (str): The base URL for the HTTP requests.
-            params (dict): Specific parameters for the HTTP request.
+            interface (str): The interface for the HTTP requests.
         """
 
         # A HTML information extractor.
         self.__extractor = Extractor(requester=HttpRequester(url=url,
-                                                             params=params),
+                                                             params={'papel': ticker,
+                                                                     'interface': interface}),
                                      collector=HtmlCollector())
         # A raw information transformer.
         self.__transformer = Transformer()
 
     def get_all_information(self) -> TransformContract:
-        """
-        Retrieves detailed financial information of listed companies.
+        """Retrieves detailed financial information of listed companies.
 
         This method extracts and transforms financial data of companies,
         including indicators such as net profit, net revenue, among others,
@@ -101,8 +105,7 @@ class FundamentusPipeline:
         return self.__transformer.transform_companies(extract_contract)
 
     def list_all_property_funds(self) -> TransformContract:
-        """
-        Lists all real estate investment funds with available data.
+        """Lists all real estate investment funds with available data.
 
         Similar to the company listing, this method focuses on real estate
         investment funds, providing relevant information for investors interested
