@@ -21,7 +21,7 @@ import requests
 import requests_cache
 
 from fundamentus.contracts.request_contract import RequestContract
-from fundamentus.utils.random_user_agent import get_random_user_agent
+from fundamentus.utilities.random_user_agent import get_random_user_agent
 from .interfaces.http_requester import HttpRequesterInterface
 
 
