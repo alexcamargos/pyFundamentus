@@ -26,10 +26,7 @@ from .fundamentus_pipeline import FundamentusPipeline
 def test_get_all_information() -> None:
     """Test the get_all_information method."""
 
-    url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'papel': 'MGLU3', 'interface': 'mobile'}
-
-    main_pipeline = FundamentusPipeline(url=url, params=payload)
+    main_pipeline = FundamentusPipeline('MGLU3')
     response = main_pipeline.get_all_information()
 
     assert isinstance(response, TransformContract)
@@ -54,13 +51,12 @@ def test_list_all_companies(requests_mock) -> None:
     """Test the list_all_companies method."""
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'interface': 'mobile'}
 
     requests_mock.get(url=url,
                       status_code=COMPANIES_LIST_MOCK['status_code'],
                       text=COMPANIES_LIST_MOCK['content'])
 
-    main_pipeline = FundamentusPipeline(url=url, params=payload)
+    main_pipeline = FundamentusPipeline()
     response = main_pipeline.list_all_companies()
 
     assert isinstance(response, TransformContract)
@@ -72,13 +68,12 @@ def test_list_all_property_funds(requests_mock) -> None:
     """Test the list_all_companies method."""
 
     url = 'https://www.fundamentus.com.br/detalhes.php'
-    payload = {'interface': 'mobile'}
 
     requests_mock.get(url=url,
                       status_code=COMPANIES_LIST_MOCK['status_code'],
                       text=COMPANIES_LIST_MOCK['content'])
 
-    main_pipeline = FundamentusPipeline(url=url, params=payload)
+    main_pipeline = FundamentusPipeline()
     response = main_pipeline.list_all_property_funds()
 
     assert isinstance(response, TransformContract)
