@@ -15,7 +15,17 @@
 #
 #  License: MIT
 # ------------------------------------------------------------------------------
-"""Transform raw information from the HTTP requester."""
+
+"""
+This module defines the TransformRawInformation class, responsible for transforming raw data
+extracted from the Fundamentus website into structured and usable financial information.
+It processes various types of financial data, including price information, detailed stock
+information, oscillations, valuation indicators, profitability indicators, indebtedness
+indicators, balance sheets, and income statements, making it ready for analysis or storage.
+
+The transformation is crucial for preparing the data for further financial analysis or
+for feeding into financial models.
+"""
 
 from decimal import Decimal
 from typing import Dict, List
@@ -30,33 +40,62 @@ from fundamentus.exceptions.transform_exception import TransformException
 # pylint: disable=too-many-statements
 # pylint: disable=duplicate-code
 class TransformRawInformation:
-    """Represents a raw information transformer."""
+    """
+    A class to transform raw financial data into structured financial information.
+
+    This class provides methods to clean and transform raw data into a more
+    structured form, using predefined contracts for various financial metrics.
+    It handles data such as stock price information, detailed stock metrics,
+    market oscillations, valuation and profitability indicators, indebtedness
+    metrics, balance sheet details, and income statements.
+
+    Methods are provided to process individual components of the financial data,
+    as well as to transform comprehensive datasets for complete analysis.
+    """
 
     @staticmethod
     def __remove_new_lines(string: str) -> str:
-        """Remove all newline from the string.
+        """
+        Remove all newline characters from a given string.
 
-        :param string: string to be processed.
-        :return: processed string.
+        Args:
+            string (str): The input string from which newline
+                          characters will be removed.
+
+        Returns:
+            str: A new string with all newline characters removed.
         """
 
         return string.replace('\n', '')
 
     @staticmethod
     def __remove_all_spaces(string: str) -> str:
-        """Remove all spaces from the string.
+        """
+        Remove all space characters from the input string.
 
-        :param string: string to be processed.
-        :return: processed string.
+        Args:
+            string (str): The input string from which space
+                          characters will be removed.
+
+        Returns:
+            str: A new string with all space characters removed.
         """
 
         return string.replace(' ', '')
 
     def __string_processing(self, string: str) -> str:
-        """Process the string.
+        """
+        Processes a string by removing newlines, question marks,
+        and trimming spaces.
 
-        :param string: string to be processed.
-        :return: processed string.
+        This method is a composite string cleaner that prepares
+        strings for further processing.
+
+        Args:
+            string (str): The string to process.
+
+        Returns:
+            str: The cleaned and processed string.
         """
 
         # Remove all \n from the string.
@@ -71,30 +110,62 @@ class TransformRawInformation:
 
     @staticmethod
     def __remove_dot(string: str) -> str:
-        """Remove the dot from the string.
+        """
+        Removes all period (dot) characters from a given string.
 
-        :param string: string to be processed.
-        :return: processed string.
+        This static method is used for cleaning strings by removing all
+        occurrences of the period character. It's particularly useful
+        in preprocessing numerical strings where dots may be used as
+        thousand separators or are otherwise present but not desired
+        in the final numerical representation.
+
+        Args:
+            string (str): The input string from which dots will be removed.
+
+        Returns:
+            str: A new string with all period characters removed.
         """
 
         return string.replace('.', '')
 
     @staticmethod
     def __change_comma_to_dot(string: str) -> str:
-        """Change the comma to dot in the string.
+        """
+        Replaces all comma characters with period (dot)
+        characters in a given string.
 
-        :param string: string to be processed.
-        :return: processed string.
+        This method is essential for processing numerical strings
+        where commas are used as decimal separators, converting
+        them to a format that is compatible with the decimal
+        point notation used in Python. It ensures that numerical
+        strings can be correctly converted to float or Decimal types.
+
+        Args:
+            string (str): The input string in which commas will be
+            replaced with dots.
+
+        Returns:
+            str: The modified string with commas replaced by dots,
+            ready for numerical conversion.
         """
 
         return string.replace(',', '.')
 
     @staticmethod
     def __to_decimal(value: str) -> Decimal:
-        """Construct a new Decimal object based from value.
+        """
+        Convert a string to a Decimal, handling percentage values.
 
-        :param value: value to be processed.
-        :return: Decimal object.
+        Converts string representations of numbers, including those
+        ending in '%', to Decimal. Percentage values are converted to
+        their decimal equivalent (e.g., "50%" becomes 0.5).
+
+        Args:
+            value (str): The string representing a number or
+                         percentage to convert.
+
+        Returns:
+            Decimal: The Decimal representation of the input string.
         """
 
         if value.endswith('%'):
@@ -106,19 +177,39 @@ class TransformRawInformation:
 
     @staticmethod
     def __remove_currency_symbol(number: str) -> str:
-        """Remove the currency symbol from the number.
+        """
+        Removes currency symbols from a given string.
 
-        :param number: number to be processed.
-        :return: processed number.
+        This static method is designed to strip common currency symbols
+        (e.g., the dollar sign '$', the euro sign '€', or the Brazilian real 'R$')
+        from the input string, preparing it for numerical conversion or
+        further processing. While primarily focused on the Brazilian real symbol,
+        it can be extended to remove other currency symbols as needed.
+
+        Args:
+            number (str): The input string from which currency symbols are to be removed.
+
+        Returns:
+            str: The input string with currency symbols removed, ready for further processing.
         """
 
         return number.replace('R$', '')
 
     def __number_processing(self, number: str) -> Decimal:
-        """Process the number.
+        """
+        Processes a raw string representing a number and converts it into a Decimal.
 
-        :param number: number to be processed.
-        :return: processed number.
+        This method applies a series of cleaning steps to the input string, including removing currency
+        symbols, replacing commas with dots for decimal representation, and removing unnecessary spaces
+        or newline characters. The cleaned string is then converted into a Decimal for accurate financial
+        calculations.
+
+        Args:
+            number (str): The raw string representation of a number, potentially including currency symbols,
+            commas as decimal separators, and whitespace.
+
+        Returns:
+            Decimal: The cleaned and converted Decimal object representing the input number.
         """
 
         return self.__to_decimal(
@@ -128,10 +219,21 @@ class TransformRawInformation:
 
     def __transformation_of_price_information(self,
                                               price_information: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transforms raw price information into a structured dictionary.
 
-        :param price_information: raw information to be processed.
-        :return: processed information.
+        This method processes the raw price information of a stock, including the stock's current
+        price and the date of the price, and structures it into a dictionary with InformationItem
+        instances. It handles cleaning and formatting of the raw data to ensure it is ready for
+        further financial analysis or storage.
+
+        Args:
+            price_information (Dict): A dictionary containing the raw price information with keys
+            'price' and 'date', each associated with a list of raw data values.
+
+        Returns:
+            Dict: A dictionary with keys 'price' and 'date', where each key is associated with an
+            InformationItem instance containing cleaned and structured data.
         """
 
         price = InformationItem(
@@ -148,10 +250,20 @@ class TransformRawInformation:
 
     def __transformation_of_detailed_information(
             self, detailed_information: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transform detailed information of a stock into structured data.
 
-        :param detailed_information: raw information to be processed.
-        :return: processed information.
+        Takes raw detailed information about a stock, including stock type,
+        traded volume per day, equity value per share, and earnings per share,
+        and converts it into a structured form using InformationItem contracts.
+
+        Args:
+            detailed_information (Dict): A dictionary containing raw detailed
+                                         information of a stock.
+
+        Returns:
+            Dict: A dictionary of transformed detailed information structured
+                  as InformationItem instances.
         """
 
         stock_type = InformationItem(
@@ -215,10 +327,19 @@ class TransformRawInformation:
 
     def __transformation_of_oscillations(
             self, oscillations_information: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transform stock oscillation information into structured data.
 
-        :param oscillations_information: raw information to be processed.
-        :return: processed information.
+        Processes raw data related to stock price oscillations over
+        different time periods into a structured format, facilitating
+        further analysis.
+
+        Args:
+            oscillations_information (Dict): Raw data about stock price oscillations.
+
+        Returns:
+            Dict: Structured oscillation information, organized into InformationItem
+            instances for each time period.
         """
 
         variation_day = InformationItem(
@@ -306,11 +427,20 @@ class TransformRawInformation:
 
     def __transformation_of_valuation_indicators(
             self, valuation_indicators: Dict) -> Dict:
-        """Make the transformation.
-
-        :param valuation_indicators: raw information to be processed.
-        :return: processed information.
         """
+        Transform valuation indicators into structured data for analysis.
+
+        Converts raw valuation indicators, including price to earnings ratio,
+        price to book value, and dividend yield, among others, into a structured
+        and easily consumable format.
+
+        Args:
+            valuation_indicators (Dict): Raw valuation indicators of a stock.
+
+        Returns:
+            Dict: A dictionary containing structured valuation indicators,
+                  each represented as an InformationItem.
+    """
 
         price_divided_by_profit_title = InformationItem(
             title=self.__string_processing(
@@ -411,10 +541,19 @@ class TransformRawInformation:
 
     def __transformation_of_profitability_indicators(
             self, profitability_indicators: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transform profitability indicators into structured data.
 
-        :param profitability_indicators: raw information to be processed.
-        :return: processed information.
+        Takes raw data on profitability metrics such as return on equity,
+        return on invested capital, and net revenue growth, and structures
+        them for easy analysis.
+
+        Args:
+            profitability_indicators (Dict): Raw profitability indicators of a stock.
+
+        Returns:
+            Dict: Structured profitability indicators, each encapsulated
+                  in an InformationItem.
         """
 
         return_on_equity = InformationItem(
@@ -509,10 +648,19 @@ class TransformRawInformation:
 
     def __transformation_of_indebtedness_indicators(
             self, indebtedness_indicators: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transform indebtedness indicators into structured data.
 
-        :param indebtedness_indicators: raw information to be processed.
-        :return: processed information.
+        Processes raw data on a company's indebtedness, such as
+        current liquidity and debt to equity ratios, into a structured
+        format for further financial analysis.
+
+        Args:
+            indebtedness_indicators (Dict): Raw indebtedness indicators.
+
+        Returns:
+            Dict: A dictionary of structured indebtedness indicators,
+                  organized as InformationItem instances.
         """
 
         current_liquidity = InformationItem(
@@ -563,11 +711,21 @@ class TransformRawInformation:
             'equity_by_total_assets': equity_by_total_assets
         }
 
-    def __transformation_of_balance_sheet(self, balance_sheet: Dict) -> Dict:
-        """Make the transformation.
+    def __transformation_of_balance_sheet(self,
+                                          balance_sheet: Dict) -> Dict:
+        """
+        Transform balance sheet data into a structured format.
 
-        :param balance_sheet: raw information to be processed.
-        :return: processed information.
+        Converts raw balance sheet data, including total assets,
+        current assets, and liabilities, into structured information
+        suitable for financial analysis.
+
+        Args:
+            balance_sheet (Dict): Raw balance sheet data of a company.
+
+        Returns:
+            Dict: Structured balance sheet information, formatted
+                  as InformationItem instances.
         """
 
         total_assets = InformationItem(
@@ -612,10 +770,19 @@ class TransformRawInformation:
 
     def __transformation_of_income_statement(self,
                                              income_statement: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Transform income statement data into a structured format.
 
-        :param income_statement: raw information to be processed.
-        :return: processed information.
+        Processes raw income statement data, detailing revenue, EBIT,
+        and net income over specific periods, into a structured format
+        for easy access and analysis.
+
+        Args:
+            income_statement (Dict): Raw data of a company's income statement.
+
+        Returns:
+            Dict: Structured income statement information, encapsulated
+                  in InformationItem instances.
         """
 
         twelve_months_revenue = InformationItem(
@@ -680,41 +847,78 @@ class TransformRawInformation:
         }
 
     def __make_transformation(self, raw_information: Dict) -> Dict:
-        """Make the transformation.
+        """
+        Perform the comprehensive transformation of raw financial information.
 
-        :param raw_information: Dict: Raw information.
-        :return: Dict: Transformed information.
+        This method orchestrates the transformation of raw financial data into a
+        structured format across multiple dimensions, including price information,
+        detailed stock metrics, oscillations, valuation indicators, profitability
+        indicators, indebtedness indicators, balance sheet details, and income statements.
+        It leverages other private methods within the class to process each segment
+        of data individually and then combines them into a comprehensive, structured
+        dictionary ready for further analysis or storage.
+
+        The method ensures that all relevant financial information is processed
+        and structured uniformly, facilitating easy access and analysis of financial
+        metrics for the stocks in question.
+
+        Args:
+            raw_information (Dict): A dictionary containing all the raw financial
+            data for a stock, organized by data categories (e.g., price information,
+            detailed information, etc.).
+
+        Returns:
+            Dict: A dictionary containing all the transformed financial information,
+            where each category of data is structured into dictionaries or
+            InformationItem instances, providing a comprehensive view of the
+            financial metrics for further analysis.
+
+        Raises:
+            TransformException: An exception is raised if any part of the
+            transformation process fails, encapsulating the original
+            exception for debugging purposes.
+
+        Example:
+            >>> raw_info = {
+                    "price": {"price": ["Price", "", "100"],
+                    "date": ["Date", "", "2021-01-01"]},
+                    "detailed_information": {"stock_type": ["Stock Type", "", "Common"]},
+                    ...
+                }
+            >>> transformed_info = __make_transformation(raw_info)
+            >>> print(transformed_info.keys())
+            dict_keys(['price_information', 'detailed_information', 'oscillations', ...])
         """
 
-        # Processando informações do preço da ação.
+        # Processing stock price information.
         price_information = self.__transformation_of_price_information(
             raw_information['price'])
 
-        # Processando informações detalhadas da ação.
+        # Processing detailed stock information.
         detailed_information = self.__transformation_of_detailed_information(
             raw_information['detailed_information'])
 
-        # Processando informações das oscilações da contação da ação.
+        # Processing stock price oscillation information.
         oscillations = self.__transformation_of_oscillations(
             raw_information['oscillations'])
 
-        # Processando informações dos indicadores de avaliação da ação.
+        # Processing stock valuation indicators.
         valuation_indicators = self.__transformation_of_valuation_indicators(
             raw_information['valuation_indicators'])
 
-        # Processando informações dos indicadores de rentabilidade da ação.
+        # Processing stock profitability indicators.
         profitability_indicators = self.__transformation_of_profitability_indicators(
             raw_information['profitability_indicators'])
 
-        # Processando informações dos indicadores de endividamento da ação.
+        # Processing stock indebtedness indicators.
         indebtedness_indicators = self.__transformation_of_indebtedness_indicators(
             raw_information['indebtedness_indicators'])
 
-        # Processando informações dos indicadores de balanço patrimonial da ação.
+        # Processing stock balance sheet indicators.
         balance_sheet = self.__transformation_of_balance_sheet(
             raw_information['balance_sheet'])
 
-        # Processando informações dos demostrativos de resultados da ação.
+        # Processing stock income statement information.
         income_statement = self.__transformation_of_income_statement(
             raw_information['income_statement'])
 
@@ -730,10 +934,18 @@ class TransformRawInformation:
         }
 
     def __make_transformation_companies(self, raw_information: str) -> List[Dict[str, str]]:
-        """Make the transformation.
+        """
+        Transforms raw company information into a structured list of dictionaries.
 
-        :param raw_information: raw information to be processed.
-        :return: processed information.
+        Each dictionary in the list contains cleaned and structured information about a company,
+        including its code, name, corporate name, and a link to its detailed page.
+
+        Args:
+            raw_information (str): Raw string information about companies.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries, where each dictionary contains structured
+            information about a company.
         """
 
         transformed = []
@@ -758,10 +970,18 @@ class TransformRawInformation:
 
     def __make_transformation_property_funds(self,
                                              raw_information: str) -> List[Dict[str, str]]:
-        """Make the transformation.
+        """
+        Transforms raw property fund information into a structured list of dictionaries.
 
-        :param raw_information: raw information to be processed.
-        :return: processed information.
+        This method processes information related to property funds, structuring it into a list where
+        each item is a dictionary containing the fund's code, name, and a link to its detailed information.
+
+        Args:
+            raw_information (str): Raw string information about property funds.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries, each containing structured information
+            about a property fund.
         """
 
         transformed = []
@@ -779,11 +999,21 @@ class TransformRawInformation:
 
     def transform_all_information(
             self, extract_contract: ExtractContract) -> TransformContract:
-        """Transform the raw information.
+        """
+        Transforms all extracted information from an ExtractContract into a structured TransformContract.
 
-        :param extract_contract: ExtractContract: Extract contract.
-        :return: TransformContract: Transform contract.
-        :raises TransformException: if the transform fails.
+        This comprehensive transformation covers all aspects of financial data, including price info,
+        detailed stock information, oscillations, and various indicators relevant for financial analysis.
+
+        Args:
+            extract_contract (ExtractContract): The contract containing all raw extracted information.
+
+        Returns:
+            TransformContract: A contract containing all transformed information, structured for easy
+                               access and analysis.
+
+        Raises:
+            TransformException: If an error occurs during the transformation process.
         """
 
         try:
@@ -799,12 +1029,20 @@ class TransformRawInformation:
 
     def transform_companies(
             self, extract_contract: ExtractContract) -> TransformContract:
-        """Transform the raw information of companies.
+        """
+        Transforms extracted company information from an ExtractContract into a TransformContract.
 
-        :param extract_contract: ExtractContract: Extract contract.
-        :return: TransformContract: Transform contract.
+        Specifically focuses on transforming information related to companies, preparing it for further
+        analysis or database storage.
 
-        :raises TransformException: if the transform fails.
+        Args:
+            extract_contract (ExtractContract): The contract containing raw extracted company information.
+
+        Returns:
+            TransformContract: A contract with transformed company information, structured and ready for use.
+
+        Raises:
+            TransformException: If an error occurs during the transformation of company information.
         """
 
         try:
@@ -820,12 +1058,20 @@ class TransformRawInformation:
 
     def transform_property_funds(
             self, extract_contract: ExtractContract) -> TransformContract:
-        """Transform the raw information of property funds.
+        """
+        Transforms extracted property fund information from an ExtractContract into a TransformContract.
 
-        :param extract_contract: ExtractContract: Extract contract.
-        :return: TransformContract: Transform contract.
+        Processes raw data about property funds, structuring it for further analysis or inclusion in
+        financial databases.
 
-        :raises TransformException: if the transform fails.
+        Args:
+            extract_contract (ExtractContract): The contract containing raw extracted information about property funds.
+
+        Returns:
+            TransformContract: A contract containing structured information on property funds, ready for further use.
+
+        Raises:
+            TransformException: If an error occurs during the transformation of property fund information.
         """
 
         try:
