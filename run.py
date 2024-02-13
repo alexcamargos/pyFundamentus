@@ -17,8 +17,8 @@
 # ------------------------------------------------------------------------------
 
 """
-Python Fundamentus is a Python API that allows you to quickly access the main
-fundamental indicators of the main stocks in the Brazilian market.
+Python Fundamentus API: Instant access to key financial indicators of
+Brazilian stocks, empowering investors with comprehensive market analysis.
 """
 
 import fundamentus
@@ -32,10 +32,7 @@ TITLES = [
 
 # pylint: disable=line-too-long
 if __name__ == '__main__':
-    URL = 'https://www.fundamentus.com.br/detalhes.php'
-    PAYLOAD = {'papel': 'VALE3', 'interface': 'mobile'}
-
-    main_pipeline = fundamentus.Pipeline(url=URL, params=PAYLOAD)
+    main_pipeline = fundamentus.Pipeline('VALE3')
     response = main_pipeline.get_all_information()
 
     # Extract the information from the response.
