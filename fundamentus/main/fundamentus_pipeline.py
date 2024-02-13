@@ -16,9 +16,15 @@
 #  License: MIT
 # ------------------------------------------------------------------------------
 
-"""Python Fundamentus is a Python API that allows you to quickly access the main
-fundamental indicators of the main stocks in the Brazilian market.
 """
+Python Fundamentus API
+
+This module provides a programmatic interface to access and analyze key financial and
+fundamental indicators of companies listed on the Brazilian stock exchange (Bovespa).
+Using this API, investors and analysts can quickly obtain detailed data to assist in
+investment decision-making.
+"""
+
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.drivers.html_collector import HtmlCollector
 from fundamentus.drivers.http_requester import HttpRequester
@@ -29,23 +35,51 @@ from fundamentus.stages.transformation.transform_raw_information import \
 
 
 class FundamentusPipeline:
+    """
+    A pipeline for accessing and processing financial information
+    of companies listed on Bovespa.
+
+    This class orchestrates the collection and transformation of
+    financial data from the Fundamentus website, providing a simplified
+    interface to access fundamental indicators, company lists,
+    and real estate investment funds.
+
+    Attributes:
+        url (str): The base URL for making HTTP requests.
+        params (dict): Parameters for the HTTP requests.
+
+    Methods:
+        get_all_information: Returns detailed financial information of companies.
+        list_all_companies: Lists all companies with available data.
+        list_all_property_funds: Lists all real estate investment funds
+                                    with available data.
+    """
 
     def __init__(self, url: str, params: dict) -> None:
-        """Initialize the class.
+        """Initializes the FundamentusPipeline object.
 
-        :param url: str: URL to make the request.
-        :param params: dict: Parameters to make the request.
+        Args:
+            url (str): The base URL for the HTTP requests.
+            params (dict): Specific parameters for the HTTP request.
         """
 
+        # A HTML information extractor.
         self.__extractor = Extractor(requester=HttpRequester(url=url,
                                                              params=params),
                                      collector=HtmlCollector())
+        # A raw information transformer.
         self.__transformer = Transformer()
 
     def get_all_information(self) -> TransformContract:
-        """Get the stock information.
+        """
+        Retrieves detailed financial information of listed companies.
 
-        :return: dict: Stock information.
+        This method extracts and transforms financial data of companies,
+        including indicators such as net profit, net revenue, among others,
+        providing a comprehensive view of the companies' financial and economic state.
+
+        Returns:
+            TransformContract: A contract containing the transformed financial data.
         """
 
         extract_contract = self.__extractor.extract_all_information()
@@ -53,9 +87,13 @@ class FundamentusPipeline:
         return self.__transformer.transform_all_information(extract_contract)
 
     def list_all_companies(self) -> TransformContract:
-        """Get the list of all companies.
+        """Lists all companies with available data.
 
-        :return: list: List of all companies.
+        Extracts and transforms a list of companies listed on Bovespa,
+        facilitating the identification of potential investments.
+
+        Returns:
+            TransformContract: A contract containing the transformed list of companies.
         """
 
         extract_contract = self.__extractor.extract_companies()
@@ -63,9 +101,16 @@ class FundamentusPipeline:
         return self.__transformer.transform_companies(extract_contract)
 
     def list_all_property_funds(self) -> TransformContract:
-        """Get the list of all companies.
+        """
+        Lists all real estate investment funds with available data.
 
-        :return: list: List of all companies.
+        Similar to the company listing, this method focuses on real estate
+        investment funds, providing relevant information for investors interested
+        in this segment.
+
+        Returns:
+            TransformContract: A contract containing the transformed list
+                               of real estate investment funds.
         """
 
         extract_contract = self.__extractor.extract_property_funds()
