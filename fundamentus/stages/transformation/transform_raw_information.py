@@ -168,12 +168,15 @@ class TransformRawInformation:
             Decimal: The Decimal representation of the input string.
         """
 
+        if '-' in value:
+            return Decimal(0)
+
         if value.endswith('%'):
-            value = value[:-1]
+            value = value[:-1].strip()
 
             return Decimal(value) / 100
 
-        return Decimal(value) if value is not None else None
+        return Decimal(value.strip()) if value is not None else None
 
     @staticmethod
     def __remove_currency_symbol(number: str) -> str:
@@ -728,6 +731,33 @@ class TransformRawInformation:
                   as InformationItem instances.
         """
 
+        if len(balance_sheet) == 4:
+            total_assets = InformationItem(
+                title=self.__string_processing(balance_sheet['total_assets'][0]),
+                tooltip=self.__string_processing(balance_sheet['total_assets'][1]),
+                value=self.__number_processing(balance_sheet['total_assets'][2]))
+
+            credit_portfolio = InformationItem(
+                title=self.__string_processing(balance_sheet['credit_portfolio'][0]),
+                tooltip=self.__string_processing(balance_sheet['credit_portfolio'][1]),
+                value=self.__number_processing(balance_sheet['credit_portfolio'][2]))
+
+            deposits = InformationItem(
+                title=self.__string_processing(balance_sheet['deposits'][0]),
+                tooltip=self.__string_processing(balance_sheet['deposits'][1]),
+                value=self.__number_processing(balance_sheet['deposits'][2]))
+            equity = InformationItem(
+                title=self.__string_processing(balance_sheet['equity'][0]),
+                tooltip=self.__string_processing(balance_sheet['equity'][1]),
+                value=self.__number_processing(balance_sheet['equity'][2]))
+
+            return {
+                'total_assets': total_assets,
+                'credit_portfolio': credit_portfolio,
+                'deposits': deposits,
+                'equity': equity
+            }
+
         total_assets = InformationItem(
             title=self.__string_processing(balance_sheet['total_assets'][0]),
             tooltip=self.__string_processing(balance_sheet['total_assets'][1]),
@@ -735,8 +765,7 @@ class TransformRawInformation:
 
         current_assets = InformationItem(
             title=self.__string_processing(balance_sheet['current_assets'][0]),
-            tooltip=self.__string_processing(
-                balance_sheet['current_assets'][1]),
+            tooltip=self.__string_processing(balance_sheet['current_assets'][1]),
             value=self.__number_processing(balance_sheet['current_assets'][2]))
 
         cash = InformationItem(

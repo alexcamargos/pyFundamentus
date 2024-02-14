@@ -217,43 +217,54 @@ class HtmlCollector(HtmlCollectorInterface):
 
         # Extract the variation of the day.
         variation_day_value = self.__processing_data_value(information[0])
-        variation_day_title = information[0].find('span', {'class': 'data-text'}).text
+        variation_day_title = information[0].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation of the month.
         variation_month_value = self.__processing_data_value(information[1])
-        variation_month_title = information[1].find('span', {'class': 'data-text'}).text
+        variation_month_title = information[1].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation of the 30 days.
         variation_30_days_value = self.__processing_data_value(information[2])
-        variation_30_days_title = information[2].find('span', {'class': 'data-text'}).text
+        variation_30_days_title = information[2].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation of the 12 months.
-        variation_12_months_value = self.__processing_data_value(information[3])
-        variation_12_months_title = information[3].find('span', {'class': 'data-text'}).text
+        variation_12_months_value = self.__processing_data_value(
+            information[3])
+        variation_12_months_title = information[3].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2022.
         variation_2022_value = self.__processing_data_value(information[4])
-        variation_2022_title = information[4].find('span', {'class': 'data-text'}).text
+        variation_2022_title = information[4].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2021.
         variation_2021_value = self.__processing_data_value(information[5])
-        variation_2021_title = information[5].find('span', {'class': 'data-text'}).text
+        variation_2021_title = information[5].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2020.
         variation_2020_value = self.__processing_data_value(information[6])
-        variation_2020_title = information[6].find('span', {'class': 'data-text'}).text
+        variation_2020_title = information[6].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2019.
         variation_2019_value = self.__processing_data_value(information[7])
-        variation_2019_title = information[7].find('span', {'class': 'data-text'}).text
+        variation_2019_title = information[7].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2018.
         variation_2018_value = self.__processing_data_value(information[8])
-        variation_2018_title = information[8].find('span', {'class': 'data-text'}).text
+        variation_2018_title = information[8].find(
+            'span', {'class': 'data-text'}).text
 
         # Extract the variation on 2017.
         variation_2017_value = self.__processing_data_value(information[9])
-        variation_2017_title = information[9].find('span', {'class': 'data-text'}).text
+        variation_2017_title = information[9].find(
+            'span', {'class': 'data-text'}).text
 
         return {
             'variation_day': [variation_day_title, variation_day_value],
@@ -608,44 +619,88 @@ class HtmlCollector(HtmlCollectorInterface):
         total_assets_tooltip = self.__processing_data_tooltip(column_left[0])
         total_assets_value = self.__processing_data_value(column_left[0])
 
-        # Bens ou direitos que podem ser convertido em dinheiro em curto prazo.
-        current_assets_title = self.__processing_data_title(column_left[1])
-        current_assets_tooltip = self.__processing_data_tooltip(column_left[1])
-        current_assets_value = self.__processing_data_value(column_left[1])
+        if len(column_left) != 3:
+            # Carteira de crédito.
+            credit_portfolio_title = self.__processing_data_title(column_left[1])
+            credit_portfolio_tooltip = self.__processing_data_tooltip(column_left[1])
+            credit_portfolio_value = self.__processing_data_value(column_left[1])
+        else:
+            # Bens ou direitos que podem ser convertido em dinheiro em curto prazo.
+            current_assets_title = self.__processing_data_title(column_left[1])
+            current_assets_tooltip = self.__processing_data_tooltip(column_left[1])
+            current_assets_value = self.__processing_data_value(column_left[1])
 
-        # Contas que representam bens numerários (Dinheiro).
-        cash_title = self.__processing_data_title(column_left[2])
-        cash_tooltip = self.__processing_data_tooltip(column_left[2])
-        cash_value = self.__processing_data_value(column_left[2])
+            # Contas que representam bens numerários (Dinheiro).
+            cash_title = self.__processing_data_title(column_left[2])
+            cash_tooltip = self.__processing_data_tooltip(column_left[2])
+            cash_value = self.__processing_data_value(column_left[2])
 
-        # Dívida Bruta.
-        gross_debt_title = self.__processing_data_title(column_right[0])
-        gross_debt_tooltip = self.__processing_data_tooltip(column_right[0])
-        gross_debt_value = self.__processing_data_value(column_right[0])
+        if len(column_right) != 3:
+            # Operação financeira em que um banco recebe determinada quantia em dinheiro,
+            # comprometendo-se a guardá-la e se obrigando a restituí-la quando solicitado
+            # pelo depositante ou em data prefixada.
+            deposits_title = self.__processing_data_title(column_right[0])
+            deposits_tooltip = self.__processing_data_tooltip(column_right[0])
+            deposits_value = self.__processing_data_value(column_right[0])
 
-        # Dívida Líquida.
-        net_debt_title = self.__processing_data_title(column_right[1])
-        net_debt_tooltip = self.__processing_data_tooltip(column_right[1])
-        net_debt_value = self.__processing_data_value(column_right[1])
+            # Patrimônio Líquido.
+            equity_title = self.__processing_data_title(column_right[1])
+            equity_tooltip = self.__processing_data_tooltip(column_right[1])
+            equity_value = self.__processing_data_value(column_right[1])
+        else:
+            # Dívida Bruta.
+            gross_debt_title = self.__processing_data_title(column_right[0])
+            gross_debt_tooltip = self.__processing_data_tooltip(column_right[0])
+            gross_debt_value = self.__processing_data_value(column_right[0])
 
-        # Patrimônio Líquido.
-        equity_title = self.__processing_data_title(column_right[2])
-        equity_tooltip = self.__processing_data_tooltip(column_right[2])
-        equity_value = self.__processing_data_value(column_right[2])
+            # Dívida Líquida.
+            net_debt_title = self.__processing_data_title(column_right[1])
+            net_debt_tooltip = self.__processing_data_tooltip(column_right[1])
+            net_debt_value = self.__processing_data_value(column_right[1])
 
-        return {
-            'total_assets':
-            [total_assets_title, total_assets_tooltip, total_assets_value],
-            'current_assets': [
-                current_assets_title, current_assets_tooltip,
-                current_assets_value
-            ],
-            'cash': [cash_title, cash_tooltip, cash_value],
-            'gross_debt':
-            [gross_debt_title, gross_debt_tooltip, gross_debt_value],
-            'net_debt': [net_debt_title, net_debt_tooltip, net_debt_value],
-            'equity': [equity_title, equity_tooltip, equity_value]
-        }
+            # Patrimônio Líquido.
+            equity_title = self.__processing_data_title(column_right[2])
+            equity_tooltip = self.__processing_data_tooltip(column_right[2])
+            equity_value = self.__processing_data_value(column_right[2])
+
+        if len(column_left) != 3 or len(column_right) != 3:
+            return_value = {
+                'total_assets': [total_assets_title,
+                                 total_assets_tooltip,
+                                 total_assets_value],
+                'credit_portfolio': [credit_portfolio_title,
+                                     credit_portfolio_tooltip,
+                                     credit_portfolio_value],
+                'deposits': [deposits_title,
+                             deposits_tooltip,
+                             deposits_value],
+                'equity': [equity_title,
+                           equity_tooltip,
+                           equity_value]
+            }
+        else:
+            return_value = {
+                'total_assets': [total_assets_title,
+                                 total_assets_tooltip,
+                                 total_assets_value],
+                'current_assets': [current_assets_title,
+                                   current_assets_tooltip,
+                                   current_assets_value],
+                'cash': [cash_title,
+                         cash_tooltip,
+                         cash_value],
+                'gross_debt': [gross_debt_title,
+                               gross_debt_tooltip,
+                               gross_debt_value],
+                'net_debt': [net_debt_title,
+                             net_debt_tooltip,
+                             net_debt_value],
+                'equity': [equity_title,
+                           equity_tooltip,
+                           equity_value]
+            }
+
+        return return_value
 
     @staticmethod
     def __extraction_income_statement(soup) -> Dict:
@@ -656,12 +711,12 @@ class HtmlCollector(HtmlCollectorInterface):
         """
 
         income_statement = soup.find_all('div', {'class': 'frame'})[8]
-        information_contents = income_statement.find_all(
-            'span', {'class': 'dt-value'})
+        information_contents = income_statement.find_all('span',
+                                                         {'class': 'dt-value'})
         information_titles = income_statement.find_all('span',
                                                        {'class': 'dt-title'})
-        information_tooltip = income_statement.find_all(
-            'span', {'class': 'data-tooltip'})
+        information_tooltip = income_statement.find_all('span',
+                                                        {'class': 'data-tooltip'})
 
         # Títulos e Tooltips.
         revenue_title = information_titles[0].text
@@ -726,10 +781,12 @@ class HtmlCollector(HtmlCollectorInterface):
         valuation_indicators = self.__extraction_valuation_indicators(soup)
 
         # Extract the stock profitability indicators.
-        profitability_indicators = self.__extraction_profitability_indicators(soup)
+        profitability_indicators = self.__extraction_profitability_indicators(
+            soup)
 
         # Extract the stock indebtedness indicators.
-        indebtedness_indicators = self.__extraction_indebtedness_indicators(soup)
+        indebtedness_indicators = self.__extraction_indebtedness_indicators(
+            soup)
 
         # Extract the stock balance sheet.
         balance_sheet = self.__extraction_balance_sheet(soup)
