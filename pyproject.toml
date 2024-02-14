@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyfundamentus"
-version = "0.0.7a"
+version = "0.0.8"
 description = "Python Fundamentus is a Python API that allows you to quickly access the main fundamental indicators of the main stocks in the Brazilian market."
 authors = ["Alexsander Lopes Camargos <alexcamargos@gmail.com>"]
 license = "MIT"

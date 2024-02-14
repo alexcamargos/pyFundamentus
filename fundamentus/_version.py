@@ -30,6 +30,6 @@ __email__ = 'alcamargos@vivaldi.net'
 # Package version.
 MAJOR = 0
 MINOR = 0
-MICRO = 7
+MICRO = 8
 
 __version__ = f'{MAJOR}.{MINOR}.{MICRO}'
