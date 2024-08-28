@@ -37,10 +37,14 @@ Para começar a usar o Python Fundamentus, siga os passos abaixo:
 
 import fundamentus
 
-URL = 'https://www.fundamentus.com.br/detalhes.php'
-PAYLOAD = {'papel': 'VALE3', 'interface': 'mobile'}
+# URL = 'https://www.fundamentus.com.br/detalhes.php'
+# PAYLOAD = {'papel': 'VALE3', 'interface': 'mobile'}
 
-main_pipeline = fundamentus.Pipeline(url=URL, params=PAYLOAD)
+main_pipeline = fundamentus.Pipeline(
+  url='https://www.fundamentus.com.br/detalhes.php',
+  ticker='WEGE3',
+  interface='mobile'
+)
 response = main_pipeline.get_all_information()
 
 # Extract the information from the response.
