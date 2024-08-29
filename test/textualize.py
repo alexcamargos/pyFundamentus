@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: textualize.py
-#  Version: 0.0.9
+#  Version: 0.0.10
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -103,6 +103,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
         'stock_identification']
     price_information = information.transformed_information[
         'price_information']
+    financial_summary = information.transformed_information[
+        'financial_summary']
     detailed_information = information.transformed_information[
         'detailed_information']
     oscillations = information.transformed_information['oscillations']
@@ -145,6 +147,21 @@ def list_all_fundamental_indicators(ticker: str) -> list:
         panel_main_information.append(
             Panel(f'{value}',
                   title=price_information[key].title,
+                  title_align='left',
+                  expand=True))
+
+    # Panel with the financial summary information.
+    panel_financial_summary = []
+    for key in financial_summary.keys():
+
+        if isinstance(financial_summary[key].value, Decimal):
+            value = f'{financial_summary[key].value:,}'
+        else:
+            value = financial_summary[key].value
+
+        panel_financial_summary.append(
+            Panel(f'{value}',
+                  title=financial_summary[key].title,
                   title_align='left',
                   expand=True))
 
@@ -325,7 +342,7 @@ def list_all_fundamental_indicators(ticker: str) -> list:
     ]
 
     return [
-        panel_main_information, panel_basic_information, panel_oscillations,
-        panel_valuation_indicators, panel_profitability_indicators,
+        panel_main_information, panel_financial_summary, panel_basic_information,
+        panel_oscillations, panel_valuation_indicators, panel_profitability_indicators,
         panel_debt_indicators, panel_balance_sheet, panel_income_statement
     ]

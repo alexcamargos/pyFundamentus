@@ -82,8 +82,8 @@ if __name__ == '__main__':
         panels = list_all_fundamental_indicators(ticker=args.ticker)
 
         titles = [
-            'Python Fundamentus', 'Informações Básicas', 'Oscilações',
-            'Indicadores de Valuation', 'Indicadores de Rentabilidade',
+            'Python Fundamentus', 'Informações Básicas', 'Resumo Financeiro',
+            'Oscilações', 'Indicadores de Valuation', 'Indicadores de Rentabilidade',
             'Indicadores de Endividamento', 'Balanço Patrimonial',
             'Demonstrativo de Resultados'
         ]
