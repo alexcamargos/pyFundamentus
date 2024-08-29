@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: extract_contract.py
-#  Version: 0.0.2
+#  Version: 0.0.4
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -27,6 +27,26 @@ __raw_information = {
     'identification': {
         'symbol': ['VALE3'],
         'name': ['VALE']
+    },
+    'financial_summary': {
+        'market_valuation': ['Valor de mercado ?',
+                             'Valor de mercado da empresa, calculado multiplicando o preço da ação pelo número total de ações.',
+                             'R$ 269.481.000.000'],
+        'enterprise_valuation': ['Valor da firma ?',
+                                 'Valor da firma (Enterprise Value) é calculado somando o valor de mercado da empresa a sua dívida líquida.',
+                                 'R$ 317.236.000.000 '],
+        'number_of_shares': ['Nº de ações ?',
+                             'Número total de ações, somadas todas as espécies: ON, PN, etc.',
+                             '4.539.010.000'],
+        'last_financial_statement': ['Último balanço ?',
+                                     'Data do último balanço divulgado pela empresa que consta no nosso banco de dados. Todos os indicadores são calculados considerando os últimos 12 meses finalizados na data deste balanço.',
+                                     '30/06/2024'],
+        'sector': ['Setor ?',
+                   'Classificação setorial.',
+                   'Mineração'],
+        'subsector': ['Subsetor ?',
+                      'Classificação por segmento de atuação.',
+                      'Minerais Metálicos']
     },
     'price': {
         'price': [
