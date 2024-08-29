@@ -24,6 +24,10 @@ from ..extract_contract import ExtractContract
 __extraction_date = dt.now().toordinal()
 
 __raw_information = {
+    'identification': {
+        'symbol': ['VALE3'],
+        'name': ['VALE']
+    },
     'price': {
         'price': [
             'Cotação ?', 'Cotação de fechamento da ação no último pregão.',
