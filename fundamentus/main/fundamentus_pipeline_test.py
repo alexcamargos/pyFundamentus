@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: fundamentus_pipeline.py
-#  Version: 0.0.5
+#  Version: 0.0.6
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -19,13 +19,22 @@
 
 from fundamentus.contracts.transform_contract import TransformContract
 from fundamentus.drivers.mocks.companies_list import COMPANIES_LIST_MOCK
+from fundamentus.drivers.mocks.html_collector import HTML_COLLECTOR_MOCK
+from fundamentus.utilities.config import URL
 
 from .fundamentus_pipeline import FundamentusPipeline
 
 
-def test_get_all_information() -> None:
+def test_get_all_information(requests_mock) -> None:
     """Test the get_all_information method."""
 
+    # Mock the HTTP GET request to return the predefined HTML
+    # content with a 200 status code.
+    requests_mock.get(URL,
+                      status_code=HTML_COLLECTOR_MOCK['status_code'],
+                      text=HTML_COLLECTOR_MOCK['content'])
+
+    # Initialize the pipeline and execute the method under test.
     main_pipeline = FundamentusPipeline('MGLU3')
     response = main_pipeline.get_all_information()
 
@@ -50,12 +59,13 @@ def test_get_all_information() -> None:
 def test_list_all_companies(requests_mock) -> None:
     """Test the list_all_companies method."""
 
-    url = 'https://www.fundamentus.com.br/detalhes.php'
-
-    requests_mock.get(url=url,
+    # Mock the HTTP GET request to return the predefined HTML
+    # content with a 200 status code.
+    requests_mock.get(URL,
                       status_code=COMPANIES_LIST_MOCK['status_code'],
                       text=COMPANIES_LIST_MOCK['content'])
 
+    # Initialize the pipeline and execute the method under test.
     main_pipeline = FundamentusPipeline()
     response = main_pipeline.list_all_companies()
 
