@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: textualize.py
-#  Version: 0.0.10
+#  Version: 0.0.11
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -17,6 +17,8 @@
 # ------------------------------------------------------------------------------
 """Rich's Fundamentus Command line interface."""
 
+import sys
+
 from decimal import Decimal
 
 from rich.columns import Columns
@@ -24,6 +26,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 from fundamentus.contracts.transform_contract import TransformContract
+from fundamentus.exceptions.extract_exception import ExtractException
 from fundamentus import Pipeline as Fundamentus
 
 
@@ -80,7 +83,15 @@ def get_all_information(ticker: str) -> TransformContract:
     """
 
     main_pipeline = Fundamentus(ticker)
-    response = main_pipeline.get_all_information()
+
+    try:
+        response = main_pipeline.get_all_information()
+    except ExtractException:
+        print('Python Fundamentus\n')
+        print(
+            f"O código '{ticker}' não corresponde a nenhuma ação conhecida no mercado brasileiro.\n")
+        print('Por favor, verifique o código e tente novamente.\n')
+        sys.exit(0)
 
     return response
 
