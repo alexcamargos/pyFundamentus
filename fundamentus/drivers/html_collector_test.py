@@ -31,7 +31,7 @@ def test_collect_all_information() -> None:
         HTML_COLLECTOR_MOCK['content'])
 
     assert isinstance(collect_information, dict)
-    assert len(collect_information) == 8
+    assert len(collect_information) == 9
 
 
 def test_collect_all_information_keys_results() -> None:
@@ -42,7 +42,7 @@ def test_collect_all_information_keys_results() -> None:
         HTML_COLLECTOR_MOCK['content'])
 
     assert [
-        'price', 'detailed_information', 'oscillations',
+        'identification', 'price', 'detailed_information', 'oscillations',
         'valuation_indicators', 'profitability_indicators',
         'indebtedness_indicators', 'balance_sheet', 'income_statement'
     ] == list(collect_information.keys())
