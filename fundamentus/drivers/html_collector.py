@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: http_requester.py
-#  Version: 0.1.0
+#  Version: 0.1.1
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -83,6 +83,67 @@ class HtmlCollector(HtmlCollectorInterface):
         return {
             'symbol': [ticket_symbol],
             'name': [company_name]
+        }
+
+    def __extraction_financial_summary(self, soup: bs) -> Dict:
+        """Extract the financial summary of the stock.
+
+        :param soup (bs): BeautifulSoup object.
+        :return (str): String with the processed information.
+        """
+
+        frame_financial_summary = soup.find('div', {'class': 'frame'})
+        information = frame_financial_summary.find_all('div', {'class': 'data'})
+
+        # Extract the market value of the stock.
+        market_valuation_title = self.__processing_data_title(information[0])
+        market_valuation_tooltip = self.__processing_data_tooltip(information[0])
+        market_valuation_value = self.__processing_data_value(information[0])
+
+        # Extract the enterprise valuation of the stock.
+        enterprise_valuation_title = self.__processing_data_title(information[1])
+        enterprise_valuation_tooltip = self.__processing_data_tooltip(information[1])
+        enterprise_valuation_value = self.__processing_data_value(information[1])
+
+        # Extract the number of shares of the stock.
+        number_of_shares_title = self.__processing_data_title(information[2])
+        number_of_shares_tooltip = self.__processing_data_tooltip(information[2])
+        number_of_shares_value = self.__processing_data_value(information[2])
+
+        # Extract the last financial statement of the stock.
+        last_financial_statement_title = self.__processing_data_title(information[3])
+        last_financial_statement_tooltip = self.__processing_data_tooltip(information[3])
+        last_financial_statement_value = self.__processing_data_value(information[3])
+
+        # Extract the sector of the stock.
+        sector_title = self.__processing_data_title(information[4])
+        sector_tooltip = self.__processing_data_tooltip(information[4])
+        sector_value = self.__processing_data_value(information[4])
+
+        # Extract the subsector of the stock.
+        subsector_title = self.__processing_data_title(information[5])
+        subsector_tooltip = self.__processing_data_tooltip(information[5])
+        subsector_value = self.__processing_data_value(information[5])
+
+        return {
+            'market_valuation': [market_valuation_title,
+                                 market_valuation_tooltip,
+                                 market_valuation_value],
+            'enterprise_valuation': [enterprise_valuation_title,
+                                     enterprise_valuation_tooltip,
+                                     enterprise_valuation_value],
+            'number_of_shares': [number_of_shares_title,
+                                 number_of_shares_tooltip,
+                                 number_of_shares_value],
+            'last_financial_statement': [last_financial_statement_title,
+                                         last_financial_statement_tooltip,
+                                         last_financial_statement_value],
+            'sector': [sector_title,
+                       sector_tooltip,
+                       sector_value],
+            'subsector': [subsector_title,
+                          subsector_tooltip,
+                          subsector_value],
         }
 
     def __extraction_price(self, soup: bs) -> Dict:
@@ -797,6 +858,9 @@ class HtmlCollector(HtmlCollectorInterface):
         # Extract the identification of the stock.
         stock_identification = self.__extraction_stock_identification(soup)
 
+        # Extract the financial summary of the stock.
+        financial_summary = self.__extraction_financial_summary(soup)
+
         # Extract the price of the stock.
         price = self.__extraction_price(soup)
 
@@ -825,6 +889,7 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return {
             'identification': stock_identification,
+            'financial_summary': financial_summary,
             'price': price,
             'detailed_information': detailed_information,
             'oscillations': oscillations,
