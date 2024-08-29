@@ -24,7 +24,7 @@ Brazilian stocks, empowering investors with comprehensive market analysis.
 import fundamentus
 
 TITLES = [
-    'Cotações', 'Informações Básicas', 'Oscilações',
+    'Identificação', 'Cotações', 'Informações Básicas', 'Oscilações',
     'Indicadores de Valuation', 'Indicadores de Rentabilidade',
     'Indicadores de Endividamento', 'Balanço Patrimonial',
     'Demonstrativo de Resultados'
@@ -36,6 +36,7 @@ if __name__ == '__main__':
     response = main_pipeline.get_all_information()
 
     # Extract the information from the response.
+    stock_identification = response.transformed_information['stock_identification']
     price_information = response.transformed_information['price_information']
     detailed_information = response.transformed_information[
         'detailed_information']
@@ -51,13 +52,20 @@ if __name__ == '__main__':
 
     print(TITLES[0])
     print('-' * len(TITLES[0]))
+    for information in stock_identification:
+        print(
+            f'{stock_identification[information].title}: {stock_identification[information].value}'
+        )
+
+    print(f'\n{TITLES[1]}')
+    print('-' * len(TITLES[1]))
     for information in price_information:
         print(
             f'{price_information[information].title}: {price_information[information].value}'
         )
 
-    print(f'\n{TITLES[1]}')
-    print('-' * len(TITLES[1]))
+    print(f'\n{TITLES[2]}')
+    print('-' * len(TITLES[2]))
     for information in detailed_information:
         if information != 'variation_52_weeks':
             print(
@@ -69,43 +77,43 @@ if __name__ == '__main__':
                     f'{detailed_information[information][sub_information].title}: {detailed_information[information][sub_information].value}'
                 )
 
-    print(f'\n{TITLES[2]}')
-    print('-' * len(TITLES[2]))
+    print(f'\n{TITLES[3]}')
+    print('-' * len(TITLES[3]))
     for information in oscillations:
         print(
             f'{oscillations[information].title}: {oscillations[information].value}'
         )
 
-    print(f'\n{TITLES[3]}')
-    print('-' * len(TITLES[3]))
+    print(f'\n{TITLES[4]}')
+    print('-' * len(TITLES[4]))
     for information in valuation_indicators:
         print(
             f'{valuation_indicators[information].title}: {valuation_indicators[information].value}'
         )
 
-    print(f'\n{TITLES[4]}')
-    print('-' * len(TITLES[4]))
+    print(f'\n{TITLES[5]}')
+    print('-' * len(TITLES[5]))
     for information in profitability_indicators:
         print(
             f'{profitability_indicators[information].title}: {profitability_indicators[information].value}'
         )
 
-    print(f'\n{TITLES[5]}')
-    print('-' * len(TITLES[5]))
+    print(f'\n{TITLES[6]}')
+    print('-' * len(TITLES[6]))
     for information in indebtedness_indicators:
         print(
             f'{indebtedness_indicators[information].title}: {indebtedness_indicators[information].value}'
         )
 
-    print(f'\n{TITLES[6]}')
-    print('-' * len(TITLES[6]))
+    print(f'\n{TITLES[7]}')
+    print('-' * len(TITLES[7]))
     for information in balance_sheet:
         print(
             f'{balance_sheet[information].title}: {balance_sheet[information].value}'
         )
 
-    print(f'\n{TITLES[7]}')
-    print('-' * len(TITLES[7]))
+    print(f'\n{TITLES[8]}')
+    print('-' * len(TITLES[8]))
     print('Últimos 03 meses')
     for information in income_statement['three_months']:
         print(
