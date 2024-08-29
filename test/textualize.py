@@ -99,6 +99,8 @@ def list_all_fundamental_indicators(ticker: str) -> list:
     information = get_all_information(ticker)
 
     # Extract the information from the response.
+    stock_identification = information.transformed_information[
+        'stock_identification']
     price_information = information.transformed_information[
         'price_information']
     detailed_information = information.transformed_information[
@@ -117,6 +119,19 @@ def list_all_fundamental_indicators(ticker: str) -> list:
 
     # Panel with the main information.
     panel_main_information = []
+    for key in stock_identification.keys():
+
+        if stock_identification[key].title == 'Código':
+            value = f'[blue]{stock_identification[key].value}[/blue]'
+        else:
+            value = stock_identification[key].value
+
+        panel_main_information.append(
+            Panel(value,
+                  title=stock_identification[key].title,
+                  title_align='left',
+                  expand=True))
+
     for key in price_information.keys():
 
         if isinstance(price_information[key].value,

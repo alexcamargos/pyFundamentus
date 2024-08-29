@@ -220,6 +220,37 @@ class TransformRawInformation:
                 self.__change_comma_to_dot(
                     self.__remove_dot(self.__remove_new_lines(number)))))
 
+    def __transformation_of_stock_identification(self,
+                                                 stock_identification: Dict) -> Dict:
+        """
+        Transform raw stock identification information into structured data.
+
+        This method processes raw stock identification information, including the stock's
+        name and ticker symbol it into a dictionary with InformationItem instances. It
+        handles cleaning and formatting of the raw data to ensure it is ready for further
+        financial analysis or storage.
+
+        Args:
+            stock_identification (Dict): A dictionary containing the raw stock identification
+            information with keys 'name' and 'ticker', each associated with a list of raw data values.
+
+        Returns:
+            Dict: A dictionary with keys 'name' and 'ticker', where each key is associated with an
+            InformationItem instance containing cleaned and structured data.
+        """
+
+        name = InformationItem(
+            title='Código',
+            tooltip='Código da ação.',
+            value=self.__string_processing(stock_identification['symbol'][0]))
+
+        ticker = InformationItem(
+            title='Empresa',
+            tooltip='Nome comercial da empresa.',
+            value=self.__string_processing(stock_identification['name'][0]))
+
+        return {'name': name, 'ticker': ticker}
+
     def __transformation_of_price_information(self,
                                               price_information: Dict) -> Dict:
         """
@@ -919,6 +950,10 @@ class TransformRawInformation:
             dict_keys(['price_information', 'detailed_information', 'oscillations', ...])
         """
 
+        # Processing stock identification information.
+        stock_identification = self.__transformation_of_stock_identification(
+            raw_information['identification'])
+
         # Processing stock price information.
         price_information = self.__transformation_of_price_information(
             raw_information['price'])
@@ -952,6 +987,7 @@ class TransformRawInformation:
             raw_information['income_statement'])
 
         return {
+            'stock_identification': stock_identification,
             'price_information': price_information,
             'detailed_information': detailed_information,
             'oscillations': oscillations,

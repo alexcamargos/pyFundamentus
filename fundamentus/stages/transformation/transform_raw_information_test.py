@@ -47,7 +47,7 @@ class TestTransformRawInformation:
 
         assert isinstance(self.transformed, TransformContract)
         assert isinstance(self.transformed.transformed_information, dict)
-        assert len(self.transformed.transformed_information) == 8
+        assert len(self.transformed.transformed_information) == 9
 
     def test_transform_raw_information_exception(self) -> None:
         """Test of transform raw information from the HTTP requester.
@@ -68,11 +68,11 @@ class TestTransformRawInformation:
 
         assert isinstance(self.transformed, TransformContract)
         assert isinstance(self.transformed.transformed_information, dict)
-        assert len(self.transformed.transformed_information) == 8
+        assert len(self.transformed.transformed_information) == 9
 
         assert [
-            'price_information', 'detailed_information', 'oscillations',
-            'valuation_indicators', 'profitability_indicators',
+            'stock_identification', 'price_information', 'detailed_information',
+            'oscillations', 'valuation_indicators', 'profitability_indicators',
             'indebtedness_indicators', 'balance_sheet', 'income_statement'
         ] == list(self.transformed.transformed_information.keys())
 
@@ -98,7 +98,6 @@ class TestTransformRawInformation:
                           InformationItem)
         assert isinstance(information['equity_value_per_share'],
                           InformationItem)
-        assert isinstance(information['earnings_per_share'], InformationItem)
         assert isinstance(information['earnings_per_share'], InformationItem)
         assert isinstance(information['variation_52_weeks'], dict)
         assert isinstance(information['variation_52_weeks']['lowest_value'],

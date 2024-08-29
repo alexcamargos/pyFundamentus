@@ -68,6 +68,23 @@ class HtmlCollector(HtmlCollectorInterface):
 
         return soup.find('span', {'class': 'data-value'}).text
 
+    def __extraction_stock_identification(self, soup: bs) -> str:
+        """Extract the name of the stock.
+
+        :param soup (bs): BeautifulSoup object.
+        :return (str): String with the processed information.
+        """
+
+        # Extract the symbol of the stock.
+        ticket_symbol = soup.find('h1', {'class': 'acao-papel'}).text
+        # Extract the name of the company.
+        company_name = soup.find('span', {'class': 'acao-nome'}).text
+
+        return {
+            'symbol': [ticket_symbol],
+            'name': [company_name]
+        }
+
     def __extraction_price(self, soup: bs) -> Dict:
         """Extract the price of the stock.
 
@@ -621,13 +638,17 @@ class HtmlCollector(HtmlCollectorInterface):
 
         if len(column_left) != 3:
             # Carteira de crédito.
-            credit_portfolio_title = self.__processing_data_title(column_left[1])
-            credit_portfolio_tooltip = self.__processing_data_tooltip(column_left[1])
-            credit_portfolio_value = self.__processing_data_value(column_left[1])
+            credit_portfolio_title = self.__processing_data_title(
+                column_left[1])
+            credit_portfolio_tooltip = self.__processing_data_tooltip(
+                column_left[1])
+            credit_portfolio_value = self.__processing_data_value(
+                column_left[1])
         else:
             # Bens ou direitos que podem ser convertido em dinheiro em curto prazo.
             current_assets_title = self.__processing_data_title(column_left[1])
-            current_assets_tooltip = self.__processing_data_tooltip(column_left[1])
+            current_assets_tooltip = self.__processing_data_tooltip(
+                column_left[1])
             current_assets_value = self.__processing_data_value(column_left[1])
 
             # Contas que representam bens numerários (Dinheiro).
@@ -650,7 +671,8 @@ class HtmlCollector(HtmlCollectorInterface):
         else:
             # Dívida Bruta.
             gross_debt_title = self.__processing_data_title(column_right[0])
-            gross_debt_tooltip = self.__processing_data_tooltip(column_right[0])
+            gross_debt_tooltip = self.__processing_data_tooltip(
+                column_right[0])
             gross_debt_value = self.__processing_data_value(column_right[0])
 
             # Dívida Líquida.
@@ -768,6 +790,13 @@ class HtmlCollector(HtmlCollectorInterface):
 
         soup = bs(html, 'html.parser')
 
+        if soup.find('table',
+                     {'class': 'table table-default table-sort table-resultados-trimestrais'}):
+            raise ValueError('The HTML content is not from a stock.')
+
+        # Extract the identification of the stock.
+        stock_identification = self.__extraction_stock_identification(soup)
+
         # Extract the price of the stock.
         price = self.__extraction_price(soup)
 
@@ -795,6 +824,7 @@ class HtmlCollector(HtmlCollectorInterface):
         income_statement = self.__extraction_income_statement(soup)
 
         return {
+            'identification': stock_identification,
             'price': price,
             'detailed_information': detailed_information,
             'oscillations': oscillations,

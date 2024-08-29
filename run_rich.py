@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # ------------------------------------------------------------------------------
-#  Name: run_cmd.py
+#  Name: run_rich.py
 #  Version: 0.0.7
 #
 #  Summary: Python Fundamentus
