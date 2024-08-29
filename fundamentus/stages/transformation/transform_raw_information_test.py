@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: transform_raw_information_test.py
-#  Version: 0.0.10
+#  Version: 0.0.11
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -29,8 +29,6 @@ from fundamentus.contracts.information_contract import InformationItem
 
 from .transform_raw_information import TransformRawInformation
 
-from rich import print
-
 
 # pylint: disable=attribute-defined-outside-init
 class TestTransformRawInformation:
@@ -47,7 +45,7 @@ class TestTransformRawInformation:
 
         assert isinstance(self.transformed, TransformContract)
         assert isinstance(self.transformed.transformed_information, dict)
-        assert len(self.transformed.transformed_information) == 9
+        assert len(self.transformed.transformed_information) == 10
 
     def test_transform_raw_information_exception(self) -> None:
         """Test of transform raw information from the HTTP requester.
@@ -68,13 +66,36 @@ class TestTransformRawInformation:
 
         assert isinstance(self.transformed, TransformContract)
         assert isinstance(self.transformed.transformed_information, dict)
-        assert len(self.transformed.transformed_information) == 9
+        assert len(self.transformed.transformed_information) == 10
 
         assert [
-            'stock_identification', 'price_information', 'detailed_information',
-            'oscillations', 'valuation_indicators', 'profitability_indicators',
-            'indebtedness_indicators', 'balance_sheet', 'income_statement'
+            'stock_identification', 'financial_summary', 'price_information',
+            'detailed_information', 'oscillations', 'valuation_indicators',
+            'profitability_indicators', 'indebtedness_indicators',
+            'balance_sheet', 'income_statement'
         ] == list(self.transformed.transformed_information.keys())
+
+    def test_transformation_of_stock_identification(self) -> None:
+        """Test of transform stock identification information from the HTTP requester."""
+
+        information = self.transformed.transformed_information['stock_identification']
+        assert isinstance(information, dict)
+        assert isinstance(information['name'], InformationItem)
+        assert isinstance(information['ticker'], InformationItem)
+
+    def test_transformation_of_financial_summary(self) -> None:
+        """Test of transform financial summary from the HTTP requester."""
+
+        information = self.transformed.transformed_information['financial_summary']
+
+        assert isinstance(information, dict)
+        assert isinstance(information['market_valuation'], InformationItem)
+        assert isinstance(information['enterprise_valuation'], InformationItem)
+        assert isinstance(information['number_of_shares'], InformationItem)
+        assert isinstance(
+            information['last_financial_statement'], InformationItem)
+        assert isinstance(information['sector'], InformationItem)
+        assert isinstance(information['subsector'], InformationItem)
 
     def test_transform_price_information(self) -> None:
         """Test of transform price information from the HTTP requester."""

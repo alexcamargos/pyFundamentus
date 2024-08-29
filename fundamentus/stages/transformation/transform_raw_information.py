@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: transform_raw_information.py
-#  Version: 0.1.0
+#  Version: 0.1.1
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -250,6 +250,70 @@ class TransformRawInformation:
             value=self.__string_processing(stock_identification['name'][0]))
 
         return {'name': name, 'ticker': ticker}
+
+    def __transformation_of_financial_summary(self,
+                                              financial_summary: dict) -> Dict:
+        """
+        Transform raw financial summary information into structured data.
+
+        This method processes raw financial summary information, including market valuation,
+        enterprise valuation, number of shares, the last financial statement date, sector,
+        and subsector, into a dictionary with InformationItem instances. It handles the cleaning
+        and formatting of the raw data to ensure it is properly structured and ready for further
+        financial analysis or storage.
+
+        Args:
+            financial_summary (dict): A dictionary containing the raw financial summary
+            information with keys such as 'market_valuation', 'enterprise_valuation',
+            'number_of_shares', 'last_financial_statement', 'sector', and 'subsector'.
+            Each key is associated with a list of raw data values including a title,
+            tooltip, and value.
+
+        Returns:
+            Dict: A dictionary with keys like 'market_valuation', 'enterprise_valuation',
+            'number_of_shares', 'last_financial_statement', 'sector', and 'subsector',
+            where each key is associated with an InformationItem instance containing
+            cleaned and structured data.
+        """
+
+        market_valuation = InformationItem(
+            title=self.__string_processing(financial_summary['market_valuation'][0]),
+            tooltip=self.__string_processing(financial_summary['market_valuation'][1]),
+            value=self.__number_processing(financial_summary['market_valuation'][2]))
+
+        enterprise_valuation = InformationItem(
+            title=self.__string_processing(financial_summary['enterprise_valuation'][0]),
+            tooltip=self.__string_processing(financial_summary['enterprise_valuation'][1]),
+            value=self.__number_processing(financial_summary['enterprise_valuation'][2]))
+
+        number_of_shares = InformationItem(
+            title=self.__string_processing(financial_summary['number_of_shares'][0]),
+            tooltip=self.__string_processing(financial_summary['number_of_shares'][1]),
+            value=self.__number_processing(financial_summary['number_of_shares'][2]))
+
+        last_financial_statement = InformationItem(
+            title=self.__string_processing(financial_summary['last_financial_statement'][0]),
+            tooltip=self.__string_processing(financial_summary['last_financial_statement'][1]),
+            value=self.__string_processing(financial_summary['last_financial_statement'][2]))
+
+        sector = InformationItem(
+            title=self.__string_processing(financial_summary['sector'][0]),
+            tooltip=self.__string_processing(financial_summary['sector'][1]),
+            value=self.__string_processing(financial_summary['sector'][2]))
+
+        subsector = InformationItem(
+            title=self.__string_processing(financial_summary['subsector'][0]),
+            tooltip=self.__string_processing(financial_summary['subsector'][1]),
+            value=self.__string_processing(financial_summary['subsector'][2]))
+
+        return {
+            'market_valuation': market_valuation,
+            'enterprise_valuation': enterprise_valuation,
+            'number_of_shares': number_of_shares,
+            'last_financial_statement': last_financial_statement,
+            'sector': sector,
+            'subsector': subsector
+        }
 
     def __transformation_of_price_information(self,
                                               price_information: Dict) -> Dict:
@@ -954,6 +1018,10 @@ class TransformRawInformation:
         stock_identification = self.__transformation_of_stock_identification(
             raw_information['identification'])
 
+        # Processing stock Financial Summary.
+        financial_summary = self.__transformation_of_financial_summary(
+            raw_information['financial_summary'])
+
         # Processing stock price information.
         price_information = self.__transformation_of_price_information(
             raw_information['price'])
@@ -988,6 +1056,7 @@ class TransformRawInformation:
 
         return {
             'stock_identification': stock_identification,
+            'financial_summary': financial_summary,
             'price_information': price_information,
             'detailed_information': detailed_information,
             'oscillations': oscillations,
