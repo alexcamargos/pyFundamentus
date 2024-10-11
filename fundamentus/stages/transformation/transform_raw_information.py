@@ -167,7 +167,8 @@ class TransformRawInformation:
         Returns:
             Decimal: The Decimal representation of the input string.
         """
-
+        
+        # BUG: All negative values are being converted to 0.
         if '-' in value:
             return Decimal(0)
 
