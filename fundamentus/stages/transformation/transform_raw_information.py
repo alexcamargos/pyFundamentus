@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: transform_raw_information.py
-#  Version: 0.1.1
+#  Version: 0.1.2
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
