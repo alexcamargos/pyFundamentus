@@ -3,7 +3,7 @@
 
 # ------------------------------------------------------------------------------
 #  Name: transform_raw_information.py
-#  Version: 0.1.2
+#  Version: 0.1.3
 #
 #  Summary: Python Fundamentus
 #           Python Fundamentus is a Python API that allows you to quickly
@@ -168,12 +168,20 @@ class TransformRawInformation:
             Decimal: The Decimal representation of the input string.
         """
 
-        if value.endswith('%'):
-            value = value[:-1].strip()
+        strip_value = value.strip()
 
-            return Decimal(value) / 100
+        if '-' == strip_value:
+            return Decimal(0)
 
-        return Decimal(value.strip()) if value is not None else None
+        if strip_value.endswith('%'):
+            strip_value = strip_value[:-1].strip()
+
+            if '-' == strip_value.strip():
+                return Decimal(0)
+
+            return Decimal(strip_value) / 100
+
+        return Decimal(strip_value) if strip_value is not None else None
 
     @staticmethod
     def __remove_currency_symbol(number: str) -> str:
