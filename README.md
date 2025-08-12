@@ -37,7 +37,6 @@ Para começar a usar o Python Fundamentus, siga os passos abaixo:
 #### Usando a API
 
 ```python
-
 import fundamentus
 
 main_pipeline = fundamentus.Pipeline('WEGE3')
@@ -71,6 +70,16 @@ python run_rich.py VALE3
 `python run_rich.py wege3`
 
 ![](screenshot/wege3.png)
+
+
+## Tecnologias Utilizadas
+
+* **Linguagem:** Python 3
+* **Extração de Dados (Web Scraping):** Requests, BeautifulSoup
+* **CLI e Visualização (Exemplo):** Rich
+* **Testes:** Pytest, Pytest-Cov
+* **Empacotamento:** Setuptools, PyPI
+
 
 ## Contribua
 
