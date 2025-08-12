@@ -3,6 +3,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![codecov](https://codecov.io/github/alexcamargos/pyFundamentus/branch/main/graph/badge.svg?token=44RJNBZZFQ)](https://codecov.io/github/alexcamargos/pyFundamentus)
 
+[![Python versions](https://img.shields.io/pypi/pyversions/pyfundamentus.svg)](https://pypi.org/project/pyfundamentus/)
+[![PyPI version](https://img.shields.io/pypi/v/pyfundamentus.svg)](https://pypi.org/project/pyfundamentus/)
+
 > `Python Fundamentus` is a Python API that allows you to quickly access the main fundamental indicators of the main stocks in the Brazilian market.
 
 O Python Fundamentus é uma API desenvolvida em Python projetada para facilitar o acesso rápido aos principais indicadores fundamentais das ações mais relevantes do mercado brasileiro. Utilizando as informações disponíveis no site [Fundamentus](https://www.fundamentus.com.br/) diponibiliza informações financeiras e fundamentalistas detalhadas das empresas listadas na [B3](https://www.b3.com.br/), este projeto busca trazer a riqueza de dados financeiros diretamente para suas aplicações Python de maneira eficiente e organizada.
