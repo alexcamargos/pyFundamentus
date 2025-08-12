@@ -96,7 +96,7 @@ Feito com :heart: por [Alexsander Lopes Camargos](https://github.com/alexcamargo
 
 ## Copyright
 
-Copyright 2022-2024 by Alexsander Lopes Camargos.
+Copyright 2022-2025 by Alexsander Lopes Camargos.
 
 ## Licença
 
